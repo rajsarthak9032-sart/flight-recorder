@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Lemonade Flight Recorder — Experiment Engine &amp; Benchmarking</title>
+  <meta name="description" content="Controlled local AI benchmarking and experiment engine with strict metrological semantics: MEASURED, DERIVED, and UNAVAILABLE metrics."/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#4edea3",
+            "surface-dim": "#091519",
+            "on-tertiary-fixed": "#121d22",
+            "inverse-on-surface": "#273237",
+            "surface-bright": "#303b40",
+            "outline-variant": "#504534",
+            "on-surface-variant": "#d4c4ae",
+            "on-tertiary": "#273237",
+            "surface-container-lowest": "#051014",
+            "on-secondary-fixed-variant": "#005236",
+            "surface": "#091519",
+            "secondary-fixed": "#6ffbbe",
+            "surface-container-high": "#202c31",
+            "primary-fixed": "#ffdea8",
+            "surface-container-low": "#121d22",
+            "on-secondary-container": "#00311f",
+            "tertiary-fixed": "#d8e4eb",
+            "on-secondary-fixed": "#002113",
+            "primary": "#ffc557",
+            "tertiary-container": "#a9b5bb",
+            "surface-tint": "#fcbb35",
+            "on-primary": "#422d00",
+            "on-primary-container": "#5c4000",
+            "secondary-fixed-dim": "#4edea3",
+            "error": "#ff5449",
+            "error-container": "#93000a",
+            "on-error": "#690005",
+            "on-error-container": "#ffdad6",
+            "inverse-primary": "#7c5800",
+            "on-tertiary-container": "#3c474c",
+            "on-primary-fixed": "#271900",
+            "primary-container": "#e6a820",
+            "inverse-surface": "#d8e4eb",
+            "tertiary": "#a9b5bb",
+            "surface-container": "#162227",
+            "tertiary-fixed-dim": "#a9b5bb",
+            "background": "#091519",
+            "on-surface": "#d8e4eb",
+            "surface-variant": "#202c31",
+            "outline": "#9c8f80",
+            "surface-container-highest": "#273237"
+          },
+          spacing: {
+            "space-xxs": "2px",
+            "space-xs": "4px",
+            "space-sm": "8px",
+            "space-md": "16px",
+            "space-lg": "24px",
+            "space-xl": "32px",
+            "space-xxl": "48px"
+          },
+          fontFamily: {
+            sans: ["Geist", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-sans text-on-surface min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container">
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Left Global Sidebar -->
+  <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between select-none border-r border-surface-container-high/30">
+    <div class="flex flex-col">
+      <div class="h-14 px-space-md flex items-center justify-between bg-surface-container-lowest">
+        <div class="flex items-center gap-space-sm min-w-0">
+          <img alt="Lemonade Flight Recorder Logo" class="h-6 w-auto object-contain shrink-0" src="/lemonade-logo.png"/>
+          <div class="flex flex-col min-w-0">
+            <span class="font-semibold text-sm text-on-surface truncate tracking-tight">Flight Recorder</span>
+            <span class="text-[10px] text-primary tracking-widest uppercase font-mono">LEMONADE METROLOGY</span>
+          </div>
+        </div>
+        <span class="text-[10px] px-1.5 py-0.5 bg-surface-container-high text-on-surface-variant rounded font-semibold font-mono">LOCAL v1.4.2</span>
+      </div>
+      <div class="px-space-md py-space-xs text-[10px] text-on-surface-variant/70 uppercase tracking-wider font-mono">Instruments &amp; telemetry</div>
+      <nav class="flex flex-col px-space-xs gap-0.5" data-nav="sidebar">
+        <a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="command-center" href="/">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">space_dashboard</span>
+          <span class="text-xs tracking-tight">Command Center</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="flight-recorder" href="/flight-recorder">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">show_chart</span>
+          <span class="text-xs tracking-tight">Flight Recorder</span>
+        </a>
+        <a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors group bg-surface-container text-primary font-medium" data-path="experiments" href="/experiments">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-primary">biotech</span>
+          <span class="text-xs tracking-tight">Experiments</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="replay" href="/replay">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">compare</span>
+          <span class="text-xs tracking-tight">Replay Lab</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="diagnostics" href="/diagnostics">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">troubleshoot</span>
+          <span class="text-xs tracking-tight">Failure Diagnostics</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="models" href="/models">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">deployed_code</span>
+          <span class="text-xs tracking-tight">Models</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="hardware" href="/hardware">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">memory</span>
+          <span class="text-xs tracking-tight">Hardware</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="reports" href="/reports">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">description</span>
+          <span class="text-xs tracking-tight">Reports</span>
+        </a>
+      </nav>
+    </div>
+    <div class="p-space-md bg-surface-container-lowest/80 flex flex-col gap-space-xs border-t border-surface-container-high/30">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-space-xs">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_6px_rgba(78,222,163,0.6)]"></span>
+          <span class="text-xs text-on-surface font-medium">Local Agent</span>
+        </div>
+        <span class="text-[10px] font-mono text-secondary uppercase font-semibold">Active</span>
+      </div>
+      <div class="flex items-center justify-between py-1 px-2 rounded bg-surface-container-high">
+        <span class="text-[10px] font-mono text-on-surface-variant">EXPERIMENT ENGINE</span>
+        <span class="text-[10px] font-mono text-primary font-semibold tracking-wider">M6 LAB</span>
+      </div>
+      <div class="flex items-center justify-between pt-space-xs text-on-surface-variant">
+        <a class="flex items-center gap-space-xs text-on-surface-variant hover:text-on-surface transition-colors" href="/settings" onclick="showToast('Local experiment store synchronized.')">
+          <span class="material-symbols-outlined text-[16px]">settings</span>
+          <span class="text-xs">Settings</span>
+        </a>
+        <span class="text-[10px] font-mono text-on-surface-variant/60">AUTONOMOUS</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Container -->
+  <div class="pl-64">
+    <!-- Top Header -->
+    <header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-lowest/95 backdrop-blur-xl z-40 px-space-lg flex items-center justify-between gap-space-md select-none border-b border-surface-container-high/40">
+      <div class="flex items-center gap-space-md shrink-0">
+        <div class="flex items-center gap-space-xs">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span class="text-[10px] font-mono text-on-surface tracking-wider font-semibold uppercase">Benchmarking Engine</span>
+          <span class="text-[10px] font-mono text-primary font-semibold">ONLINE</span>
+        </div>
+        <div class="px-1.5 py-0.5 rounded bg-surface-container-high text-[10px] font-mono text-secondary">AIR-GAPPED METROLOGY</div>
+      </div>
+
+      <div class="hidden xl:flex items-center gap-space-xs shrink min-w-0">
+        <div class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container text-[11px] font-mono text-on-surface whitespace-nowrap">
+          <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          <span class="text-secondary font-semibold">SEMANTICS ENFORCED</span>
+        </div>
+        <div class="flex items-center px-2 py-1 rounded bg-surface-container text-[11px] font-mono text-on-surface-variant whitespace-nowrap">
+          <span class="text-on-surface-variant/70 mr-1">MEASUREMENT REGISTRY:</span>
+          <span class="text-primary font-medium">MEASURED · DERIVED · UNAVAILABLE</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-space-sm shrink-0">
+        <button id="btn-header-export-all" class="px-space-sm py-1 bg-surface-container text-on-surface hover:bg-surface-container-high rounded text-xs font-mono uppercase tracking-wider flex items-center gap-1 transition-colors" type="button" onclick="exportActiveExperiment()">
+          <span class="material-symbols-outlined text-[15px] text-primary">download</span>
+          <span>Export JSON</span>
+        </button>
+        <button id="btn-header-new-exp" class="px-space-md py-1 bg-primary text-on-primary text-xs font-semibold rounded hover:bg-primary-fixed-dim transition-colors tracking-wider uppercase flex items-center gap-1 shadow-[0_0_8px_rgba(230,168,32,0.25)]" type="button" onclick="openNewExperimentModal()">
+          <span class="material-symbols-outlined text-[16px]">add</span>
+          <span>New Experiment</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="relative pt-14 w-full px-space-lg pb-space-xl bg-background min-h-screen">
+      <div class="flex flex-col w-full gap-space-md pt-space-md">
+
+        <!-- Local Only Enforcement Banner -->
+        <div id="local-only-banner" class="w-full bg-surface-container-lowest rounded-lg p-3 flex items-center justify-between gap-3 border border-surface-container-high/40">
+          <div class="flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-secondary text-[20px] shrink-0">shield</span>
+            <div class="flex flex-col">
+              <span class="text-xs font-semibold text-on-surface flex items-center gap-2">
+                Execution: LOCAL ONLY
+                <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-secondary/10 text-secondary border border-secondary/30">ZERO TELEMETRY EGRESS</span>
+              </span>
+              <span class="text-[11px] text-on-surface-variant">Runs execute strictly through the Flight Recorder Local Agent. Private prompts and weights remain on this machine.</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="text-[10px] font-mono text-on-surface-variant/70">M6 SPECIFICATION</span>
+            <span class="px-2 py-0.5 rounded bg-surface-container text-[10px] font-mono text-primary font-semibold">VERIFIED</span>
+          </div>
+        </div>
+
+        <!-- 2-Column Laboratory Layout: Left Experiment Switcher & Right Detail Cockpit -->
+        <div class="grid grid-cols-12 gap-space-md items-start">
+
+          <!-- Left Column: Experiment Selector (col-span-4) -->
+          <div class="col-span-12 lg:col-span-4 flex flex-col gap-space-sm">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-[11px] font-mono text-on-surface-variant uppercase tracking-wider">Experiment Collection</span>
+              <span id="experiment-count-badge" class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-surface-container-high text-primary">3 Experiments</span>
+            </div>
+
+            <!-- Experiment List Container -->
+            <div id="experiments-list" class="flex flex-col gap-2">
+              <div class="p-4 bg-surface-container-lowest rounded-lg border border-surface-container-high/40 text-center text-on-surface-variant text-xs">
+                Loading experiment collection...
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Experiment Detail / Benchmarking Cockpit (col-span-8) -->
+          <div class="col-span-12 lg:col-span-8 flex flex-col gap-space-md">
+
+            <!-- Active Experiment Header Card -->
+            <div id="active-exp-header" class="w-full bg-surface-container-lowest rounded-lg p-space-md border border-surface-container-high/40 flex flex-col gap-3">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div class="flex flex-col min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span id="active-exp-status-pill" class="text-[10px] font-mono px-2 py-0.5 rounded uppercase font-semibold">LOADING</span>
+                    <span id="active-exp-id" class="text-[11px] font-mono text-on-surface-variant">exp-000</span>
+                    <span id="active-exp-date" class="text-[10px] font-mono text-on-surface-variant/60">--</span>
+                  </div>
+                  <h1 id="active-exp-title" class="text-lg font-semibold text-on-surface tracking-tight truncate">Loading Experiment...</h1>
+                  <p id="active-exp-desc" class="text-xs text-on-surface-variant mt-0.5">...</p>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center gap-2 shrink-0">
+                  <button id="btn-run-trials" class="px-3 py-1.5 bg-primary text-on-primary rounded text-xs font-semibold hover:bg-primary-fixed-dim transition-colors flex items-center gap-1 shadow-sm" onclick="runActiveExperiment()">
+                    <span class="material-symbols-outlined text-[16px]">play_arrow</span>
+                    <span>Execute Trials</span>
+                  </button>
+                  <button id="btn-export-single" class="px-2.5 py-1.5 bg-surface-container text-on-surface hover:bg-surface-container-high rounded text-xs font-mono transition-colors flex items-center gap-1" onclick="exportActiveExperiment()">
+                    <span class="material-symbols-outlined text-[16px] text-primary">file_download</span>
+                    <span>Export</span>
+                  </button>
+                  <button id="btn-delete-exp" class="px-2 py-1.5 bg-surface-container text-error hover:bg-error/20 rounded text-xs font-mono transition-colors" title="Delete Experiment" onclick="deleteActiveExperiment()">
+                    <span class="material-symbols-outlined text-[16px]">delete</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Workload & Hardware Substrate Metadata -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-2 pt-2 border-t border-surface-container-high/30">
+                <div class="flex flex-col bg-surface-container/50 p-2 rounded">
+                  <span class="text-[10px] font-mono text-on-surface-variant/70 uppercase">TARGET MODEL</span>
+                  <span id="meta-model" class="text-xs font-mono text-primary font-medium truncate">--</span>
+                </div>
+                <div class="flex flex-col bg-surface-container/50 p-2 rounded">
+                  <span class="text-[10px] font-mono text-on-surface-variant/70 uppercase">SUBSTRATE &amp; BACKEND</span>
+                  <span id="meta-hardware" class="text-xs font-mono text-on-surface truncate">--</span>
+                </div>
+                <div class="flex flex-col bg-surface-container/50 p-2 rounded">
+                  <span class="text-[10px] font-mono text-on-surface-variant/70 uppercase">TRIALS PROGRESS</span>
+                  <span id="meta-trials-progress" class="text-xs font-mono text-secondary font-semibold">--</span>
+                </div>
+              </div>
+
+              <!-- Workload Prompt Inspector (Collapsible) -->
+              <div class="bg-surface-container-low rounded p-2.5 border border-surface-container-high/20">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[10px] font-mono text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px] text-primary">terminal</span>
+                    Controlled Workload Vector
+                  </span>
+                  <button class="text-[10px] font-mono text-primary hover:underline" onclick="copyWorkloadPrompt()">Copy Prompt</button>
+                </div>
+                <pre id="workload-prompt-preview" class="text-[11px] font-mono text-on-surface/90 whitespace-pre-wrap bg-surface-container-lowest p-2 rounded max-h-24 overflow-y-auto"></pre>
+              </div>
+            </div>
+
+            <!-- Provenance Distribution Strip -->
+            <div id="provenance-strip" class="w-full bg-surface-container-lowest rounded-lg p-2.5 border border-surface-container-high/40 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+                <span class="text-[11px] font-mono text-on-surface font-medium uppercase">Provenance Audit:</span>
+              </div>
+              <div id="provenance-badges" class="flex flex-wrap items-center gap-1.5">
+                <!-- Dynamically generated badges -->
+              </div>
+            </div>
+
+            <!-- Empirical Benchmark Measurement Cards Grid -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[16px] text-primary">speed</span>
+                  Statistical Benchmarks (Metrological Semantics)
+                </span>
+                <span class="text-[10px] font-mono text-on-surface-variant/70">No values fabricated or manufactured</span>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+                <!-- Metric 1: Total Latency -->
+                <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high/40 flex flex-col justify-between">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-mono text-on-surface-variant uppercase">LATENCY (DURATION)</span>
+                    <span id="badge-semantics-duration" class="text-[9px] font-mono px-1 py-0.2 rounded bg-secondary/10 text-secondary border border-secondary/30">MEASURED</span>
+                  </div>
+                  <div class="my-2">
+                    <div class="flex items-baseline gap-1">
+                      <span id="stat-duration-median" class="text-xl font-bold font-mono text-on-surface">--</span>
+                      <span class="text-xs font-mono text-on-surface-variant">ms</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-on-surface-variant/70">Median Observed</span>
+                  </div>
+                  <div class="pt-2 border-t border-surface-container-high/30 flex flex-col gap-0.5 text-[10px] font-mono text-on-surface-variant">
+                    <div class="flex justify-between">
+                      <span>Range:</span>
+                      <span id="stat-duration-range">--</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>Mean ± StdDev:</span>
+                      <span id="stat-duration-mean">--</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Metric 2: Time to First Token (TTFT) -->
+                <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high/40 flex flex-col justify-between">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-mono text-on-surface-variant uppercase">PREFILL TTFT</span>
+                    <span id="badge-semantics-ttft" class="text-[9px] font-mono px-1 py-0.2 rounded bg-secondary/10 text-secondary border border-secondary/30">MEASURED</span>
+                  </div>
+                  <div class="my-2">
+                    <div class="flex items-baseline gap-1">
+                      <span id="stat-ttft-median" class="text-xl font-bold font-mono text-on-surface">--</span>
+                      <span class="text-xs font-mono text-on-surface-variant">ms</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-on-surface-variant/70">Median TTFT</span>
+                  </div>
+                  <div class="pt-2 border-t border-surface-container-high/30 flex flex-col gap-0.5 text-[10px] font-mono text-on-surface-variant">
+                    <div class="flex justify-between">
+                      <span>Range:</span>
+                      <span id="stat-ttft-range">--</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>Mean ± StdDev:</span>
+                      <span id="stat-ttft-mean">--</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Metric 3: Throughput (TPS) -->
+                <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high/40 flex flex-col justify-between">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-mono text-on-surface-variant uppercase">THROUGHPUT</span>
+                    <span id="badge-semantics-tps" class="text-[9px] font-mono px-1 py-0.2 rounded bg-primary/10 text-primary border border-primary/30">DERIVED</span>
+                  </div>
+                  <div class="my-2">
+                    <div class="flex items-baseline gap-1">
+                      <span id="stat-tps-median" class="text-xl font-bold font-mono text-primary">--</span>
+                      <span class="text-xs font-mono text-on-surface-variant">tok/s</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-on-surface-variant/70">Median Generation Rate</span>
+                  </div>
+                  <div class="pt-2 border-t border-surface-container-high/30 flex flex-col gap-0.5 text-[10px] font-mono text-on-surface-variant">
+                    <div class="flex justify-between">
+                      <span>Range:</span>
+                      <span id="stat-tps-range">--</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>Formula:</span>
+                      <span class="text-[9px] text-on-surface-variant/80">out_tok / sec</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Metric 4: Token Volume & VRAM -->
+                <div class="bg-surface-container-lowest p-3 rounded-lg border border-surface-container-high/40 flex flex-col justify-between">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-mono text-on-surface-variant uppercase">TOKENS &amp; VRAM</span>
+                    <span id="badge-semantics-tokens" class="text-[9px] font-mono px-1 py-0.2 rounded bg-secondary/10 text-secondary border border-secondary/30">MEASURED</span>
+                  </div>
+                  <div class="my-2">
+                    <div class="flex items-baseline gap-1">
+                      <span id="stat-tokens-total" class="text-xl font-bold font-mono text-on-surface">--</span>
+                      <span class="text-xs font-mono text-on-surface-variant">tokens</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-on-surface-variant/70">Per-Trial Token Volume</span>
+                  </div>
+                  <div class="pt-2 border-t border-surface-container-high/30 flex flex-col gap-0.5 text-[10px] font-mono text-on-surface-variant">
+                    <div class="flex justify-between">
+                      <span>Peak VRAM:</span>
+                      <span id="stat-vram-peak" class="text-on-surface">--</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>In / Out Split:</span>
+                      <span id="stat-token-split">--</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trial Matrix Table Card -->
+            <div class="bg-surface-container-lowest rounded-lg border border-surface-container-high/40 flex flex-col overflow-hidden">
+              <div class="p-3 bg-surface-container-low/60 border-b border-surface-container-high/30 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-primary">table_chart</span>
+                  <span class="text-xs font-mono text-on-surface font-medium uppercase tracking-wider">Trial Execution Matrix</span>
+                </div>
+                <span class="text-[10px] font-mono text-on-surface-variant/70">Direct Run &amp; Diagnostic Lineage</span>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="bg-surface-container-lowest/80 border-b border-surface-container-high/30 text-[10px] font-mono text-on-surface-variant uppercase tracking-wider">
+                      <th class="py-2.5 px-3">#</th>
+                      <th class="py-2.5 px-3">Run ID</th>
+                      <th class="py-2.5 px-3">Status</th>
+                      <th class="py-2.5 px-3">Provenance</th>
+                      <th class="py-2.5 px-3">Duration (ms)</th>
+                      <th class="py-2.5 px-3">TTFT (ms)</th>
+                      <th class="py-2.5 px-3">Throughput</th>
+                      <th class="py-2.5 px-3">Diagnostics Finding</th>
+                      <th class="py-2.5 px-3 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="trial-matrix-tbody" class="divide-y divide-surface-container-high/20 font-mono text-[11px]">
+                    <!-- Rendered dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Trial Comparison Laboratory -->
+            <div class="bg-surface-container-lowest rounded-lg p-3 border border-surface-container-high/40 flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-on-surface font-medium uppercase tracking-wider flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px] text-primary">tune</span>
+                  Trial-to-Trial Metrological Comparison
+                </span>
+                <span class="text-[10px] font-mono text-on-surface-variant/70">Empirical difference inspection (No arbitrary winner)</span>
+              </div>
+              <p class="text-xs text-on-surface-variant">Select two trials to view empirical deltas across latency, TTFT, and generation consistency:</p>
+              
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <div class="flex items-center gap-1 text-xs font-mono">
+                  <span class="text-on-surface-variant">Trial A:</span>
+                  <select id="compare-select-a" class="bg-surface-container-high text-on-surface text-xs rounded px-2 py-1 font-mono border border-surface-container-highest" onchange="updateTrialComparison()"></select>
+                </div>
+                <div class="flex items-center gap-1 text-xs font-mono">
+                  <span class="text-on-surface-variant">Trial B:</span>
+                  <select id="compare-select-b" class="bg-surface-container-high text-on-surface text-xs rounded px-2 py-1 font-mono border border-surface-container-highest" onchange="updateTrialComparison()"></select>
+                </div>
+              </div>
+
+              <!-- Comparison Comparison Diff Grid -->
+              <div id="compare-diff-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mt-2 pt-2 border-t border-surface-container-high/30">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal: Create New Experiment -->
+  <div id="modal-new-experiment" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-surface-container-low border border-surface-container-high rounded-xl max-w-lg w-full p-space-lg flex flex-col gap-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-surface-container-high/40 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[20px]">science</span>
+          <h2 class="text-base font-semibold text-on-surface">Define Controlled Experiment</h2>
+        </div>
+        <button class="text-on-surface-variant hover:text-on-surface" onclick="closeNewExperimentModal()">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-mono text-on-surface-variant uppercase">Experiment Name</label>
+          <input id="input-exp-name" type="text" class="bg-surface-container-lowest border border-surface-container-high/50 rounded px-3 py-1.5 text-xs text-on-surface focus:outline-none focus:border-primary font-sans" placeholder="e.g. Mistral Context Packing Throughput"/>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-mono text-on-surface-variant uppercase">Description (Optional)</label>
+          <input id="input-exp-desc" type="text" class="bg-surface-container-lowest border border-surface-container-high/50 rounded px-3 py-1.5 text-xs text-on-surface focus:outline-none focus:border-primary font-sans" placeholder="Hypothesis or benchmark intent"/>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-mono text-on-surface-variant uppercase">Model Substrate</label>
+            <select id="input-exp-model" class="bg-surface-container-lowest border border-surface-container-high/50 rounded px-2.5 py-1.5 text-xs text-on-surface focus:outline-none focus:border-primary font-mono">
+              <option value="Qwen2.5-Coder-7B-Instruct">Qwen2.5-Coder-7B-Instruct</option>
+              <option value="Mistral-NeMo-12B-Instruct">Mistral-NeMo-12B-Instruct</option>
+              <option value="Llama-3.2-3B-Instruct">Llama-3.2-3B-Instruct</option>
+              <option value="Mock-Model-Tiny">Mock-Model-Tiny (Synthetic Provider)</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-mono text-on-surface-variant uppercase">Repeat Count (Trials)</label>
+            <input id="input-exp-repeats" type="number" min="1" max="20" value="5" class="bg-surface-container-lowest border border-surface-container-high/50 rounded px-3 py-1.5 text-xs text-on-surface focus:outline-none focus:border-primary font-mono"/>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-mono text-on-surface-variant uppercase">Workload Input Prompt (Deterministic Test Vector)</label>
+          <textarea id="input-exp-prompt" rows="3" class="bg-surface-container-lowest border border-surface-container-high/50 rounded p-2 text-xs font-mono text-on-surface focus:outline-none focus:border-primary" placeholder="Provide reproducible prompt vector for repeated trial execution..."></textarea>
+        </div>
+
+        <div class="p-2.5 rounded bg-surface-container-lowest border border-secondary/20 flex items-center gap-2 text-[11px] text-secondary font-mono">
+          <span class="material-symbols-outlined text-[16px]">lock</span>
+          <span>Trials execute locally through authoritative Local Agent inference path.</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-surface-container-high/30">
+        <button class="px-3 py-1.5 rounded text-xs text-on-surface-variant hover:text-on-surface" onclick="closeNewExperimentModal()">Cancel</button>
+        <button class="px-4 py-1.5 rounded bg-primary text-on-primary font-semibold text-xs hover:bg-primary-fixed-dim transition-colors shadow-sm" onclick="createAndExecuteExperiment()">Create &amp; Run Trials</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client Application Script -->
+  <script>
+    let activeExperimentId = 'exp-001';
+    let cachedExperiments = [];
+    let currentDetailData = null;
+
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'bg-surface-container-highest border border-primary/40 text-on-surface px-3 py-2 rounded shadow-lg text-xs font-mono flex items-center gap-2 pointer-events-auto transition-opacity duration-300';
+      toast.innerHTML = `<span class="material-symbols-outlined text-primary text-[14px]">info</span><span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    async function fetchExperiments() {
+      try {
+        const res = await fetch('/api/experiments');
+        const data = await res.json();
+        cachedExperiments = data.experiments || [];
+        renderExperimentList();
+        
+        // Auto-select first or URL-specified experiment
+        const urlParams = new URLSearchParams(window.location.search);
+        const qId = urlParams.get('id');
+        if (qId && cachedExperiments.some(e => e.id === qId)) {
+          selectExperiment(qId);
+        } else if (cachedExperiments.length > 0) {
+          if (!cachedExperiments.some(e => e.id === activeExperimentId)) {
+            activeExperimentId = cachedExperiments[0].id;
+          }
+          selectExperiment(activeExperimentId);
+        }
+      } catch (err) {
+        console.error('Failed to load experiments:', err);
+        showToast('Error loading experiments.');
+      }
+    }
+
+    function renderExperimentList() {
+      const container = document.getElementById('experiments-list');
+      const badge = document.getElementById('experiment-count-badge');
+      if (badge) badge.textContent = `${cachedExperiments.length} Experiments`;
+
+      if (cachedExperiments.length === 0) {
+        container.innerHTML = `<div class="p-4 bg-surface-container-lowest rounded-lg border border-surface-container-high/40 text-center text-on-surface-variant text-xs">No experiments in local store. Click "New Experiment" to create one.</div>`;
+        return;
+      }
+
+      container.innerHTML = cachedExperiments.map(exp => {
+        const isSelected = exp.id === activeExperimentId;
+        const status = exp.status || 'draft';
+        let statusBadge = '';
+        if (status === 'completed') {
+          statusBadge = `<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-secondary/10 text-secondary border border-secondary/30">COMPLETED</span>`;
+        } else if (status === 'partial') {
+          const comp = exp.summary?.completedTrials ?? 0;
+          const req = exp.workload?.repeatCount ?? 0;
+          statusBadge = `<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-primary/20 text-primary border border-primary/40 font-semibold">PARTIAL (${comp}/${req})</span>`;
+        } else if (status === 'running') {
+          statusBadge = `<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40 animate-pulse">RUNNING</span>`;
+        } else if (status === 'blocked') {
+          statusBadge = `<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-error/20 text-error border border-error/40 font-semibold">BLOCKED</span>`;
+        } else {
+          statusBadge = `<span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant font-semibold">FAILED</span>`;
+        }
+
+        const medLat = exp.summary?.metrics?.durationMs?.median != null 
+          ? `${exp.summary.metrics.durationMs.median} ms` 
+          : 'Pending';
+
+        return `
+          <div onclick="selectExperiment('${exp.id}')" class="p-3 rounded-lg cursor-pointer transition-all border ${isSelected ? 'bg-surface-container border-primary shadow-sm' : 'bg-surface-container-lowest border-surface-container-high/40 hover:bg-surface-container/50'}">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] font-mono text-on-surface-variant">${exp.id}</span>
+              ${statusBadge}
+            </div>
+            <h3 class="text-xs font-semibold text-on-surface truncate">${exp.name}</h3>
+            <div class="flex items-center justify-between mt-2 pt-1.5 border-t border-surface-container-high/20 text-[10px] font-mono text-on-surface-variant">
+              <span>${exp.configuration.model.split('-')[0]}</span>
+              <span class="text-on-surface">${medLat}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function selectExperiment(expId) {
+      activeExperimentId = expId;
+      renderExperimentList();
+
+      try {
+        const res = await fetch(`/api/experiments/${expId}`);
+        if (!res.ok) throw new Error('Experiment not found');
+        currentDetailData = await res.json();
+        renderActiveExperiment(currentDetailData);
+      } catch (err) {
+        console.error('Failed to load experiment detail:', err);
+        showToast(`Failed to load experiment ${expId}`);
+      }
+    }
+
+    function renderActiveExperiment(data) {
+      const exp = data.experiment;
+      const runs = data.runs || [];
+      const diagnostics = data.diagnostics || {};
+      const comparison = data.comparison || [];
+      const summary = exp.summary || {};
+
+      // Header info
+      document.getElementById('active-exp-id').textContent = exp.id;
+      document.getElementById('active-exp-title').textContent = exp.name;
+      document.getElementById('active-exp-desc').textContent = exp.description || 'Deterministic controlled experiment execution.';
+      document.getElementById('active-exp-date').textContent = new Date(exp.createdAt).toLocaleString();
+      document.getElementById('workload-prompt-preview').textContent = exp.workload.input;
+
+      // Status pill
+      const statusEl = document.getElementById('active-exp-status-pill');
+      statusEl.className = 'text-[10px] font-mono px-2 py-0.5 rounded uppercase font-semibold ';
+      if (exp.status === 'completed') {
+        statusEl.className += 'bg-secondary/15 text-secondary border border-secondary/30';
+        statusEl.textContent = 'COMPLETED';
+      } else if (exp.status === 'partial') {
+        statusEl.className += 'bg-primary/20 text-primary border border-primary/40';
+        statusEl.textContent = `PARTIAL (${summary.completedTrials || 0}/${exp.workload.repeatCount} Trials)`;
+      } else if (exp.status === 'running') {
+        statusEl.className += 'bg-blue-500/20 text-blue-300 border border-blue-500/40 animate-pulse';
+        statusEl.textContent = 'RUNNING';
+      } else {
+        statusEl.className += 'bg-error/20 text-error border border-error/40';
+        statusEl.textContent = 'FAILED';
+      }
+
+      // Metadata items
+      document.getElementById('meta-model').textContent = exp.configuration.model;
+      document.getElementById('meta-hardware').textContent = `${exp.configuration.device || 'AMD Ryzen AI NPU'} (${exp.configuration.backend || 'DirectML'})`;
+      document.getElementById('meta-trials-progress').textContent = `${summary.completedTrials || 0} completed of ${exp.workload.repeatCount} requested`;
+
+      // Provenance Badges
+      const provStrip = document.getElementById('provenance-badges');
+      const provDist = summary.provenanceDistribution || { real: 0, mock: 0, blocked: 0, unavailable: 0, legacy: 0 };
+      provStrip.innerHTML = `
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-secondary/10 text-secondary border border-secondary/30">Real Lemonade: ${provDist.real}</span>
+        ${provDist.blocked > 0 ? `<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-error/20 text-error border border-error/40 font-semibold">Blocked: ${provDist.blocked}</span>` : ''}
+        ${provDist.mock > 0 ? `<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 border border-yellow-500/40">Synthetic Mock: ${provDist.mock}</span>` : ''}
+        ${provDist.unavailable > 0 ? `<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant">Unavailable: ${provDist.unavailable}</span>` : ''}
+      `;
+
+      // Metrics: Duration
+      const durMetric = summary.metrics?.durationMs;
+      if (durMetric && durMetric.semantics !== 'UNAVAILABLE' && durMetric.median != null) {
+        document.getElementById('stat-duration-median').textContent = durMetric.median.toLocaleString();
+        document.getElementById('stat-duration-range').textContent = `${durMetric.min} - ${durMetric.max} ms`;
+        document.getElementById('stat-duration-mean').textContent = `${durMetric.mean} ±${durMetric.stdDev} ms (n=${durMetric.n})`;
+        document.getElementById('badge-semantics-duration').textContent = 'MEASURED';
+        document.getElementById('badge-semantics-duration').className = 'text-[9px] font-mono px-1 py-0.2 rounded bg-secondary/10 text-secondary border border-secondary/30';
+      } else {
+        document.getElementById('stat-duration-median').textContent = 'Unavailable';
+        document.getElementById('stat-duration-range').textContent = '--';
+        document.getElementById('stat-duration-mean').textContent = 'No valid measurements';
+        document.getElementById('badge-semantics-duration').textContent = 'UNAVAILABLE';
+        document.getElementById('badge-semantics-duration').className = 'text-[9px] font-mono px-1 py-0.2 rounded bg-surface-container-high text-on-surface-variant';
+      }
+
+      // Metrics: TTFT
+      const ttftMetric = summary.metrics?.ttftMs;
+      if (ttftMetric && ttftMetric.semantics !== 'UNAVAILABLE' && ttftMetric.median != null) {
+        document.getElementById('stat-ttft-median').textContent = ttftMetric.median.toLocaleString();
+        document.getElementById('stat-ttft-range').textContent = `${ttftMetric.min} - ${ttftMetric.max} ms`;
+        document.getElementById('stat-ttft-mean').textContent = `${ttftMetric.mean} ±${ttftMetric.stdDev} ms (n=${ttftMetric.n})`;
+        document.getElementById('badge-semantics-ttft').textContent = 'MEASURED';
+        document.getElementById('badge-semantics-ttft').className = 'text-[9px] font-mono px-1 py-0.2 rounded bg-secondary/10 text-secondary border border-secondary/30';
+      } else {
+        document.getElementById('stat-ttft-median').textContent = 'Unavailable';
+        document.getElementById('stat-ttft-range').textContent = '--';
+        document.getElementById('stat-ttft-mean').textContent = 'Timing unrecorded';
+        document.getElementById('badge-semantics-ttft').textContent = 'UNAVAILABLE';
+        document.getElementById('badge-semantics-ttft').className = 'text-[9px] font-mono px-1 py-0.2 rounded bg-surface-container-high text-on-surface-variant';
+      }
+
+      // Metrics: TPS
+      const tpsMetric = summary.metrics?.tokensPerSecond;
+      if (tpsMetric && tpsMetric.semantics !== 'UNAVAILABLE' && tpsMetric.median != null) {
+        document.getElementById('stat-tps-median').textContent = tpsMetric.median.toFixed(1);
+        document.getElementById('stat-tps-range').textContent = `${tpsMetric.min} - ${tpsMetric.max} tok/s`;
+        document.getElementById('badge-semantics-tps').textContent = 'DERIVED';
+      } else {
+        document.getElementById('stat-tps-median').textContent = 'Unavailable';
+        document.getElementById('stat-tps-range').textContent = '--';
+        document.getElementById('badge-semantics-tps').textContent = 'UNAVAILABLE';
+      }
+
+      // Metrics: Tokens and VRAM
+      const tokMetric = summary.metrics?.totalTokens;
+      const vramMetric = summary.metrics?.peakVramMb;
+      if (tokMetric && tokMetric.semantics !== 'UNAVAILABLE' && tokMetric.median != null) {
+        document.getElementById('stat-tokens-total').textContent = Math.round(tokMetric.median).toLocaleString();
+        document.getElementById('stat-token-split').textContent = `${runs[0]?.telemetry?.input_tokens ?? 0} in / ${runs[0]?.telemetry?.output_tokens ?? 0} out`;
+      } else {
+        document.getElementById('stat-tokens-total').textContent = 'Unavailable';
+        document.getElementById('stat-token-split').textContent = '--';
+      }
+      document.getElementById('stat-vram-peak').textContent = vramMetric && vramMetric.max ? `${vramMetric.max} MB` : 'Unavailable';
+
+      // Render Trial Table
+      const tbody = document.getElementById('trial-matrix-tbody');
+      if (runs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="p-4 text-center text-on-surface-variant font-sans">No trials executed yet. Click "Execute Trials" to launch benchmark.</td></tr>`;
+      } else {
+        tbody.innerHTML = runs.map((run, idx) => {
+          const tIdx = run.trialIndex ?? (idx + 1);
+          const diag = diagnostics[run.id];
+          const isBlocked = run.status === 'blocked';
+          const isFailed = run.status === 'failed';
+          const isComp = run.status === 'completed';
+
+          let statusCol = `<span class="text-secondary font-semibold">COMPLETED</span>`;
+          if (isBlocked) statusCol = `<span class="text-error font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">block</span>BLOCKED</span>`;
+          if (isFailed) statusCol = `<span class="text-error font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">error</span>FAILED</span>`;
+
+          const prov = run.provenance;
+          let provCol = '<span class="text-secondary">real</span>';
+          if (prov?.isSynthetic || prov?.runtime === 'mock') provCol = '<span class="text-yellow-400">synthetic</span>';
+          if (prov?.runtime === 'blocked') provCol = '<span class="text-error">blocked</span>';
+          if (prov?.runtime === 'unavailable') provCol = '<span class="text-on-surface-variant">unavailable</span>';
+
+          const dur = run.telemetry?.total_duration_ms != null ? `${run.telemetry.total_duration_ms} ms` : '<span class="text-on-surface-variant/50">Unavailable</span>';
+          const ttft = run.telemetry?.ttft_ms != null ? `${run.telemetry.ttft_ms} ms` : '<span class="text-on-surface-variant/50">Unavailable</span>';
+          const tps = run.telemetry?.tokens_per_second != null ? `${run.telemetry.tokens_per_second} tok/s` : '<span class="text-on-surface-variant/50">Unavailable</span>';
+
+          const diagFinding = diag?.findings[0]?.title ?? (isComp ? 'Nominal execution' : 'Failure observed');
+
+          return `
+            <tr class="hover:bg-surface-container/30 transition-colors ${isBlocked ? 'bg-error/5' : ''}">
+              <td class="py-2.5 px-3 text-on-surface-variant">T-${tIdx.toString().padStart(2, '0')}</td>
+              <td class="py-2.5 px-3"><a href="/runs/${run.id}" class="text-primary hover:underline font-semibold">${run.id}</a></td>
+              <td class="py-2.5 px-3">${statusCol}</td>
+              <td class="py-2.5 px-3">${provCol}</td>
+              <td class="py-2.5 px-3">${dur}</td>
+              <td class="py-2.5 px-3">${ttft}</td>
+              <td class="py-2.5 px-3">${tps}</td>
+              <td class="py-2.5 px-3 max-w-xs truncate text-[10px] ${isBlocked || isFailed ? 'text-error font-medium' : 'text-on-surface-variant'}" title="${diagFinding}">${diagFinding}</td>
+              <td class="py-2.5 px-3 text-right whitespace-nowrap">
+                <a href="/runs/${run.id}" class="px-2 py-0.5 bg-surface-container text-on-surface hover:bg-surface-container-high rounded text-[10px] inline-block mr-1">Inspect</a>
+                ${isBlocked || isFailed ? `<a href="/failure-diagnostics" class="px-2 py-0.5 bg-error/20 text-error hover:bg-error/30 rounded text-[10px] inline-block">Diagnostics</a>` : `<a href="/replay-lab" class="px-2 py-0.5 bg-surface-container text-primary hover:bg-surface-container-high rounded text-[10px] inline-block">Replay</a>`}
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // Populate comparison trial dropdowns
+      populateComparisonSelects(runs);
+    }
+
+    function populateComparisonSelects(runs) {
+      const selectA = document.getElementById('compare-select-a');
+      const selectB = document.getElementById('compare-select-b');
+      if (!selectA || !selectB) return;
+
+      const options = runs.map((r, i) => `<option value="${r.id}">Trial ${r.trialIndex || (i+1)} (${r.id} - ${r.status})</option>`).join('');
+      selectA.innerHTML = options;
+      selectB.innerHTML = options;
+
+      if (runs.length >= 2) {
+        selectA.selectedIndex = 0;
+        selectB.selectedIndex = 1;
+      }
+      updateTrialComparison();
+    }
+
+    function updateTrialComparison() {
+      if (!currentDetailData) return;
+      const runs = currentDetailData.runs || [];
+      const selectA = document.getElementById('compare-select-a');
+      const selectB = document.getElementById('compare-select-b');
+      const diffContainer = document.getElementById('compare-diff-container');
+
+      const idA = selectA.value;
+      const idB = selectB.value;
+      const runA = runs.find(r => r.id === idA);
+      const runB = runs.find(r => r.id === idB);
+
+      if (!runA || !runB) {
+        diffContainer.innerHTML = `<div class="col-span-3 text-on-surface-variant text-xs">Select two valid trials to compare.</div>`;
+        return;
+      }
+
+      const durA = runA.telemetry?.total_duration_ms;
+      const durB = runB.telemetry?.total_duration_ms;
+      let durDiff = '--';
+      if (durA != null && durB != null) {
+        const delta = durB - durA;
+        durDiff = `${delta >= 0 ? '+' : ''}${delta} ms (${(delta / durA * 100).toFixed(1)}%)`;
+      }
+
+      const ttftA = runA.telemetry?.ttft_ms;
+      const ttftB = runB.telemetry?.ttft_ms;
+      let ttftDiff = '--';
+      if (ttftA != null && ttftB != null) {
+        const delta = ttftB - ttftA;
+        ttftDiff = `${delta >= 0 ? '+' : ''}${delta} ms`;
+      }
+
+      const tpsA = runA.telemetry?.tokens_per_second;
+      const tpsB = runB.telemetry?.tokens_per_second;
+      let tpsDiff = '--';
+      if (tpsA != null && tpsB != null) {
+        const delta = tpsB - tpsA;
+        tpsDiff = `${delta >= 0 ? '+' : ''}${delta.toFixed(1)} tok/s`;
+      }
+
+      const vramA = runA.telemetry?.peak_vram_mb;
+      const vramB = runB.telemetry?.peak_vram_mb;
+      let vramDiff = '--';
+      if (vramA != null && vramB != null) {
+        const delta = vramB - vramA;
+        vramDiff = `${delta >= 0 ? '+' : ''}${delta} MB`;
+      }
+
+      diffContainer.innerHTML = `
+        <div class="bg-surface-container/50 p-2.5 rounded font-mono text-xs">
+          <div class="text-[10px] text-on-surface-variant uppercase">LATENCY DELTA</div>
+          <div class="font-semibold ${durDiff.startsWith('-') ? 'text-secondary' : 'text-on-surface'} mt-1">${durDiff}</div>
+          <div class="text-[10px] text-on-surface-variant/70 mt-0.5">T-A: ${durA != null ? durA+'ms' : 'Unavail'} vs T-B: ${durB != null ? durB+'ms' : 'Unavail'}</div>
+        </div>
+        <div class="bg-surface-container/50 p-2.5 rounded font-mono text-xs">
+          <div class="text-[10px] text-on-surface-variant uppercase">TTFT DELTA</div>
+          <div class="font-semibold text-on-surface mt-1">${ttftDiff}</div>
+          <div class="text-[10px] text-on-surface-variant/70 mt-0.5">T-A: ${ttftA != null ? ttftA+'ms' : 'Unavail'} vs T-B: ${ttftB != null ? ttftB+'ms' : 'Unavail'}</div>
+        </div>
+        <div class="bg-surface-container/50 p-2.5 rounded font-mono text-xs">
+          <div class="text-[10px] text-on-surface-variant uppercase">THROUGHPUT DELTA</div>
+          <div class="font-semibold ${tpsDiff.startsWith('+') ? 'text-secondary' : 'text-on-surface'} mt-1">${tpsDiff}</div>
+          <div class="text-[10px] text-on-surface-variant/70 mt-0.5">T-A: ${tpsA != null ? tpsA+' tok/s' : 'Unavail'} vs T-B: ${tpsB != null ? tpsB+' tok/s' : 'Unavail'}</div>
+        </div>
+        <div class="bg-surface-container/50 p-2.5 rounded font-mono text-xs">
+          <div class="text-[10px] text-on-surface-variant uppercase">MEMORY DELTA</div>
+          <div class="font-semibold text-on-surface mt-1">${vramDiff}</div>
+          <div class="text-[10px] text-on-surface-variant/70 mt-0.5">T-A: ${vramA != null ? vramA+'MB' : 'Unavail'} vs T-B: ${vramB != null ? vramB+'MB' : 'Unavail'}</div>
+        </div>
+      `;
+    }
+
+    async function runActiveExperiment() {
+      if (!activeExperimentId) return;
+      const btn = document.getElementById('btn-run-trials');
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span><span>Executing...</span>`;
+      showToast(`Executing trials for ${activeExperimentId} locally...`);
+
+      try {
+        const res = await fetch(`/api/experiments/${activeExperimentId}/run`, { method: 'POST' });
+        if (!res.ok) throw new Error('Execution failed');
+        showToast(`Trials completed for ${activeExperimentId}.`);
+        await fetchExperiments();
+        await selectExperiment(activeExperimentId);
+      } catch (err) {
+        console.error(err);
+        showToast(`Execution error: ${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span class="material-symbols-outlined text-[16px]">play_arrow</span><span>Execute Trials</span>`;
+      }
+    }
+
+    function exportActiveExperiment() {
+      if (!activeExperimentId) return;
+      window.open(`/api/experiments/${activeExperimentId}/export`, '_blank');
+      showToast(`Exporting reproducible benchmark bundle for ${activeExperimentId}.`);
+    }
+
+    async function deleteActiveExperiment() {
+      if (!activeExperimentId) return;
+      if (!confirm(`Delete experiment ${activeExperimentId} from local laboratory?`)) return;
+
+      try {
+        const res = await fetch(`/api/experiments/${activeExperimentId}`, { method: 'DELETE' });
+        if (!res.ok) throw new Error('Delete failed');
+        showToast(`Experiment ${activeExperimentId} deleted.`);
+        activeExperimentId = 'exp-001';
+        await fetchExperiments();
+      } catch (err) {
+        showToast(`Delete failed: ${err.message}`);
+      }
+    }
+
+    function copyWorkloadPrompt() {
+      const prompt = document.getElementById('workload-prompt-preview').textContent;
+      navigator.clipboard.writeText(prompt);
+      showToast('Workload vector copied to clipboard.');
+    }
+
+    // Modal helpers
+    function openNewExperimentModal() {
+      document.getElementById('modal-new-experiment').classList.remove('hidden');
+    }
+
+    function closeNewExperimentModal() {
+      document.getElementById('modal-new-experiment').classList.add('hidden');
+    }
+
+    async function createAndExecuteExperiment() {
+      const name = document.getElementById('input-exp-name').value.trim();
+      const desc = document.getElementById('input-exp-desc').value.trim();
+      const model = document.getElementById('input-exp-model').value;
+      const repeats = parseInt(document.getElementById('input-exp-repeats').value) || 5;
+      const prompt = document.getElementById('input-exp-prompt').value.trim();
+
+      if (!name) {
+        showToast('Please provide an experiment name.');
+        return;
+      }
+      if (!prompt) {
+        showToast('Please provide a workload prompt.');
+        return;
+      }
+
+      closeNewExperimentModal();
+      showToast('Creating experiment and initializing local trials...');
+
+      try {
+        const createRes = await fetch('/api/experiments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            description: desc,
+            workload: { input: prompt, repeatCount: repeats },
+            configuration: {
+              model,
+              provider: model.includes('Mock') ? 'mock' : 'lemonade',
+              backend: model.includes('Mock') ? 'Synthetic-Generator' : 'Lemonade-DirectML',
+              device: model.includes('Mock') ? 'Mock-Virtual-Silicon' : 'AMD Ryzen AI NPU (XDNA2)',
+            }
+          })
+        });
+
+        if (!createRes.ok) throw new Error('Creation failed');
+        const { experiment } = await createRes.json();
+        activeExperimentId = experiment.id;
+
+        // Automatically trigger trial execution
+        await fetch(`/api/experiments/${experiment.id}/run`, { method: 'POST' });
+        showToast(`Experiment ${experiment.name} executed successfully.`);
+        await fetchExperiments();
+        await selectExperiment(experiment.id);
+      } catch (err) {
+        console.error(err);
+        showToast(`Failed: ${err.message}`);
+      }
+    }
+
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchExperiments();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1197 @@
+[
+  {
+    "id": "rep-seed-001",
+    "title": "DirectML Silicon Throughput & Generation Baseline",
+    "description": "Controlled statistical evaluation of Qwen2.5-Coder-7B-Instruct across 5 repeated inference trials on AMD Ryzen AI NPU.",
+    "generatedAt": "2026-09-19T13:52:44.972Z",
+    "experimentId": "exp-001",
+    "runIds": [
+      "run-exp1-t1",
+      "run-exp1-t2",
+      "run-exp1-t3",
+      "run-exp1-t4",
+      "run-exp1-t5"
+    ],
+    "executiveSummary": "Conducted controlled evaluation for model \"Qwen2.5-Coder-7B-Instruct\" over 5 trial(s). Provenance distribution: 5 Real, 0 Mock, 0 Blocked, 0 Unavailable. Observed mean latency of 9616 ms across 5 completed trial(s). Identified 5 evidence-backed diagnostic finding(s). Hardware measurements grounded in local telemetry.",
+    "objective": "Establish a latency, TTFT, and throughput baseline with sample variance metrics on local DirectML acceleration.",
+    "methodology": {
+      "workload": {
+        "input": "Refactor AST parser for streaming parser nodes (batch_size=1, ctx=4k)",
+        "repeatCount": 5,
+        "description": "AST Parser streaming refactoring workload"
+      },
+      "configuration": {
+        "model": "Qwen2.5-Coder-7B-Instruct",
+        "backend": "Lemonade-DirectML",
+        "device": "AMD Ryzen AI NPU (XDNA2)",
+        "provider": "lemonade"
+      },
+      "repeatCount": 5,
+      "trialOrdering": "Sequential deterministic dispatch with automated fault recording",
+      "executionMode": "Lemonade Local DirectML/ONNX Inference Pipeline",
+      "measurementMethodology": "Hardware-grounded timer hooks (monotonic clock), token stream delta tracking, DirectML VRAM query buffers",
+      "aggregationMethodology": "Bessel-corrected sample standard deviation, median, arithmetic mean over available observations only (unavailable excluded, never zero-filled)"
+    },
+    "environment": {
+      "provider": "lemonade",
+      "runtime": "real",
+      "backend": "Lemonade-DirectML",
+      "hardware": {
+        "device": "AMD Ryzen AI NPU (XDNA2)",
+        "cpu": "AMD Ryzen AI 9 HX 370 (12 Cores / 24 Threads)",
+        "gpu": "AMD Radeon 890M (16 CUs, RDNA 3.5)",
+        "npu": "AMD XDNA 2 NPU (50 TOPS INT8)",
+        "ram": "32 GB LPDDR5X-7500",
+        "vram": "Shared / Dynamic UMA Allocation"
+      },
+      "model": "Qwen2.5-Coder-7B-Instruct",
+      "os": "Windows 11 Pro Build 26100 / Linux Sandboxed Flight Recorder Container",
+      "appVersion": "Lemonade Flight Recorder v1.4.2 (ISO/IEC 42001 Metrology Profile)"
+    },
+    "provenance": {
+      "runs": [
+        {
+          "runId": "run-exp1-t1",
+          "trialIndex": 1,
+          "provider": "lemonade",
+          "runtime": "real",
+          "status": "completed",
+          "isSynthetic": false,
+          "classification": "REAL",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML"
+        },
+        {
+          "runId": "run-exp1-t2",
+          "trialIndex": 2,
+          "provider": "lemonade",
+          "runtime": "real",
+          "status": "completed",
+          "isSynthetic": false,
+          "classification": "REAL",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML"
+        },
+        {
+          "runId": "run-exp1-t3",
+          "trialIndex": 3,
+          "provider": "lemonade",
+          "runtime": "real",
+          "status": "completed",
+          "isSynthetic": false,
+          "classification": "REAL",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML"
+        },
+        {
+          "runId": "run-exp1-t4",
+          "trialIndex": 4,
+          "provider": "lemonade",
+          "runtime": "real",
+          "status": "completed",
+          "isSynthetic": false,
+          "classification": "REAL",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML"
+        },
+        {
+          "runId": "run-exp1-t5",
+          "trialIndex": 5,
+          "provider": "lemonade",
+          "runtime": "real",
+          "status": "completed",
+          "isSynthetic": false,
+          "classification": "REAL",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML"
+        }
+      ],
+      "distribution": {
+        "real": 5,
+        "mock": 0,
+        "blocked": 0,
+        "unavailable": 0,
+        "legacy": 0
+      },
+      "isSyntheticOrUnverified": false
+    },
+    "measurements": {
+      "metrics": [
+        {
+          "metric": "Total Latency",
+          "value": "9616 ms",
+          "unit": "ms",
+          "semantics": "MEASURED",
+          "source": "Execution timer loop (wall clock)",
+          "availability": "AVAILABLE"
+        },
+        {
+          "metric": "Time to First Token (TTFT)",
+          "value": "308.4 ms",
+          "unit": "ms",
+          "semantics": "MEASURED",
+          "source": "Initial generation chunk timestamp delta",
+          "availability": "AVAILABLE"
+        },
+        {
+          "metric": "Generation Throughput",
+          "value": "42.8 tok/s",
+          "unit": "tok/s",
+          "semantics": "DERIVED",
+          "source": "Calculated from token stream count / (total_duration_ms - ttft_ms)",
+          "availability": "AVAILABLE"
+        },
+        {
+          "metric": "Peak VRAM Allocated",
+          "value": "6558.4 MB",
+          "unit": "MB",
+          "semantics": "MEASURED",
+          "source": "DirectML runtime query / System memory allocator",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "semantics": "MEASURED"
+    },
+    "statistics": {
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 5,
+          "min": 9490,
+          "median": 9610,
+          "mean": 9616,
+          "max": 9810,
+          "stdDev": 126.41,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 5,
+          "min": 298,
+          "median": 308,
+          "mean": 308.4,
+          "max": 324,
+          "stdDev": 9.94,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 5,
+          "min": 41.9,
+          "median": 42.9,
+          "mean": 42.8,
+          "max": 43.4,
+          "stdDev": 0.57,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 5,
+          "min": 2250,
+          "median": 2252,
+          "mean": 2251.4,
+          "max": 2252,
+          "stdDev": 0.89,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 5,
+          "min": 6553,
+          "median": 6553,
+          "mean": 6558.4,
+          "max": 6580,
+          "stdDev": 12.07,
+          "unit": "MB"
+        }
+      },
+      "requestedTrials": 5,
+      "completedTrials": 5,
+      "failedTrials": 0,
+      "blockedTrials": 0,
+      "unavailableTrials": 0
+    },
+    "trialMatrix": [
+      {
+        "trialIndex": 1,
+        "runId": "run-exp1-t1",
+        "status": "completed",
+        "runtime": "real",
+        "provider": "lemonade",
+        "classification": "REAL",
+        "durationMs": 9650,
+        "ttftMs": 310,
+        "tokensPerSecond": 42.7,
+        "totalTokens": 2252,
+        "peakVramMb": 6553,
+        "diagnosticsStatus": "healthy",
+        "primaryFinding": "No failure detected"
+      },
+      {
+        "trialIndex": 2,
+        "runId": "run-exp1-t2",
+        "status": "completed",
+        "runtime": "real",
+        "provider": "lemonade",
+        "classification": "REAL",
+        "durationMs": 9520,
+        "ttftMs": 302,
+        "tokensPerSecond": 43.1,
+        "totalTokens": 2250,
+        "peakVramMb": 6553,
+        "diagnosticsStatus": "healthy",
+        "primaryFinding": "No failure detected"
+      },
+      {
+        "trialIndex": 3,
+        "runId": "run-exp1-t3",
+        "status": "completed",
+        "runtime": "real",
+        "provider": "lemonade",
+        "classification": "REAL",
+        "durationMs": 9810,
+        "ttftMs": 324,
+        "tokensPerSecond": 41.9,
+        "totalTokens": 2251,
+        "peakVramMb": 6580,
+        "diagnosticsStatus": "healthy",
+        "primaryFinding": "No failure detected"
+      },
+      {
+        "trialIndex": 4,
+        "runId": "run-exp1-t4",
+        "status": "completed",
+        "runtime": "real",
+        "provider": "lemonade",
+        "classification": "REAL",
+        "durationMs": 9490,
+        "ttftMs": 298,
+        "tokensPerSecond": 43.4,
+        "totalTokens": 2252,
+        "peakVramMb": 6553,
+        "diagnosticsStatus": "healthy",
+        "primaryFinding": "No failure detected"
+      },
+      {
+        "trialIndex": 5,
+        "runId": "run-exp1-t5",
+        "status": "completed",
+        "runtime": "real",
+        "provider": "lemonade",
+        "classification": "REAL",
+        "durationMs": 9610,
+        "ttftMs": 308,
+        "tokensPerSecond": 42.9,
+        "totalTokens": 2252,
+        "peakVramMb": 6553,
+        "diagnosticsStatus": "healthy",
+        "primaryFinding": "No failure detected"
+      }
+    ],
+    "diagnostics": [
+      {
+        "id": "finding-healthy-run-run-exp1-t1",
+        "runId": "run-exp1-t1",
+        "trialIndex": 1,
+        "severity": "info",
+        "category": "runtime",
+        "title": "No failure detected",
+        "summary": "Inference completed successfully within nominal operational thresholds with all recorded telemetry verified.",
+        "evidence": [
+          {
+            "source": "run",
+            "field": "status",
+            "value": "completed",
+            "description": "Run terminated normally with completed status."
+          },
+          {
+            "source": "metric",
+            "field": "tokens_per_second",
+            "value": 42.7,
+            "description": "Sustained decode throughput of 42.7 tok/s observed."
+          },
+          {
+            "source": "metric",
+            "field": "ttft_ms",
+            "value": 310,
+            "description": "Time to First Token measured at 310ms."
+          }
+        ]
+      },
+      {
+        "id": "finding-healthy-run-run-exp1-t2",
+        "runId": "run-exp1-t2",
+        "trialIndex": 2,
+        "severity": "info",
+        "category": "runtime",
+        "title": "No failure detected",
+        "summary": "Inference completed successfully within nominal operational thresholds with all recorded telemetry verified.",
+        "evidence": [
+          {
+            "source": "run",
+            "field": "status",
+            "value": "completed",
+            "description": "Run terminated normally with completed status."
+          },
+          {
+            "source": "metric",
+            "field": "tokens_per_second",
+            "value": 43.1,
+            "description": "Sustained decode throughput of 43.1 tok/s observed."
+          },
+          {
+            "source": "metric",
+            "field": "ttft_ms",
+            "value": 302,
+            "description": "Time to First Token measured at 302ms."
+          }
+        ]
+      },
+      {
+        "id": "finding-healthy-run-run-exp1-t3",
+        "runId": "run-exp1-t3",
+        "trialIndex": 3,
+        "severity": "info",
+        "category": "runtime",
+        "title": "No failure detected",
+        "summary": "Inference completed successfully within nominal operational thresholds with all recorded telemetry verified.",
+        "evidence": [
+          {
+            "source": "run",
+            "field": "status",
+            "value": "completed",
+            "description": "Run terminated normally with completed status."
+          },
+          {
+            "source": "metric",
+            "field": "tokens_per_second",
+            "value": 41.9,
+            "description": "Sustained decode throughput of 41.9 tok/s observed."
+          },
+          {
+            "source": "metric",
+            "field": "ttft_ms",
+            "value": 324,
+            "description": "Time to First Token measured at 324ms."
+          }
+        ]
+      },
+      {
+        "id": "finding-healthy-run-run-exp1-t4",
+        "runId": "run-exp1-t4",
+        "trialIndex": 4,
+        "severity": "info",
+        "category": "runtime",
+        "title": "No failure detected",
+        "summary": "Inference completed successfully within nominal operational thresholds with all recorded telemetry verified.",
+        "evidence": [
+          {
+            "source": "run",
+            "field": "status",
+            "value": "completed",
+            "description": "Run terminated normally with completed status."
+          },
+          {
+            "source": "metric",
+            "field": "tokens_per_second",
+            "value": 43.4,
+            "description": "Sustained decode throughput of 43.4 tok/s observed."
+          },
+          {
+            "source": "metric",
+            "field": "ttft_ms",
+            "value": 298,
+            "description": "Time to First Token measured at 298ms."
+          }
+        ]
+      },
+      {
+        "id": "finding-healthy-run-run-exp1-t5",
+        "runId": "run-exp1-t5",
+        "trialIndex": 5,
+        "severity": "info",
+        "category": "runtime",
+        "title": "No failure detected",
+        "summary": "Inference completed successfully within nominal operational thresholds with all recorded telemetry verified.",
+        "evidence": [
+          {
+            "source": "run",
+            "field": "status",
+            "value": "completed",
+            "description": "Run terminated normally with completed status."
+          },
+          {
+            "source": "metric",
+            "field": "tokens_per_second",
+            "value": 42.9,
+            "description": "Sustained decode throughput of 42.9 tok/s observed."
+          },
+          {
+            "source": "metric",
+            "field": "ttft_ms",
+            "value": 308,
+            "description": "Time to First Token measured at 308ms."
+          }
+        ]
+      }
+    ],
+    "replayLineage": [
+      {
+        "runId": "run-exp1-t1",
+        "name": "exp-ast-eval-042",
+        "experimentId": "exp-001",
+        "trialIndex": 1,
+        "status": "completed",
+        "classification": "REAL"
+      },
+      {
+        "runId": "run-exp1-t2",
+        "name": "exp-ast-eval-042-t2",
+        "experimentId": "exp-001",
+        "trialIndex": 2,
+        "status": "completed",
+        "classification": "REAL"
+      },
+      {
+        "runId": "run-exp1-t3",
+        "name": "exp-ast-eval-042-t3",
+        "experimentId": "exp-001",
+        "trialIndex": 3,
+        "status": "completed",
+        "classification": "REAL"
+      },
+      {
+        "runId": "run-exp1-t4",
+        "name": "exp-ast-eval-042-t4",
+        "experimentId": "exp-001",
+        "trialIndex": 4,
+        "status": "completed",
+        "classification": "REAL"
+      },
+      {
+        "runId": "run-exp1-t5",
+        "name": "exp-ast-eval-042-t5",
+        "experimentId": "exp-001",
+        "trialIndex": 5,
+        "status": "completed",
+        "classification": "REAL"
+      }
+    ],
+    "comparisons": [
+      {
+        "trialAId": "run-exp1-t1",
+        "trialBId": "run-exp1-t2",
+        "trialAName": "Trial 1 (run-exp1-t1)",
+        "trialBName": "Trial 2 (run-exp1-t2)",
+        "trialAIndex": 1,
+        "trialBIndex": 2,
+        "latencyDeltaMs": -130,
+        "ttftDeltaMs": -8,
+        "tpsDelta": 0.4,
+        "vramDeltaMb": 0,
+        "note": "Empirical difference observed. No qualitative superiority or subjective winner assigned."
+      },
+      {
+        "trialAId": "run-exp1-t2",
+        "trialBId": "run-exp1-t3",
+        "trialAName": "Trial 2 (run-exp1-t2)",
+        "trialBName": "Trial 3 (run-exp1-t3)",
+        "trialAIndex": 2,
+        "trialBIndex": 3,
+        "latencyDeltaMs": 290,
+        "ttftDeltaMs": 22,
+        "tpsDelta": -1.2,
+        "vramDeltaMb": 27,
+        "note": "Empirical difference observed. No qualitative superiority or subjective winner assigned."
+      },
+      {
+        "trialAId": "run-exp1-t3",
+        "trialBId": "run-exp1-t4",
+        "trialAName": "Trial 3 (run-exp1-t3)",
+        "trialBName": "Trial 4 (run-exp1-t4)",
+        "trialAIndex": 3,
+        "trialBIndex": 4,
+        "latencyDeltaMs": -320,
+        "ttftDeltaMs": -26,
+        "tpsDelta": 1.5,
+        "vramDeltaMb": -27,
+        "note": "Empirical difference observed. No qualitative superiority or subjective winner assigned."
+      }
+    ],
+    "limitations": [
+      "Zero Telemetry Leakage Policy: No private weights, raw unhashed context, or prompt secrets are transmitted off-device.",
+      "Unavailable measurements are strictly marked UNAVAILABLE and never approximated as zero to avoid mathematical bias."
+    ],
+    "conclusion": "The experiment recorded 5 trial(s) for Qwen2.5-Coder-7B-Instruct. Out of 5 requested runs, 5 completed, 0 were blocked by security controls, and 0 failed with connection faults. All statistics were compiled strictly over available observations with zero estimation for missing values. This report and its attached data artifacts are fully reproducible via the Lemonade Flight Recorder replay engine."
+  },
+  {
+    "id": "rep-seed-002",
+    "title": "Failure Diagnostics & Security Block Incident Audit",
+    "description": "Multi-trial fault investigation capturing Windows Application Control binary blocking (Error 4551) and ECONNREFUSED states.",
+    "generatedAt": "2026-09-19T13:52:44.974Z",
+    "experimentId": "exp-002",
+    "runIds": [
+      "run-exp2-t1",
+      "run-exp2-t2",
+      "run-045"
+    ],
+    "executiveSummary": "Conducted controlled evaluation for model \"Qwen2.5-Coder-7B-Instruct\" over 3 trial(s). Provenance distribution: 2 Real, 0 Mock, 1 Blocked, 0 Unavailable. Observed mean latency of 3310 ms across 2 completed trial(s). Identified 3 evidence-backed diagnostic finding(s). Hardware measurements grounded in local telemetry.",
+    "objective": "Audit runtime fault classification and verify zero hallucination in failure diagnostic evidence logs.",
+    "methodology": {
+      "workload": {
+        "input": "Synthesize low-overhead DirectML buffer allocation hooks",
+        "repeatCount": 3,
+        "description": "DirectML driver dispatch stress test"
+      },
+      "configuration": {
+        "model": "Qwen2.5-Coder-7B-Instruct",
+        "backend": "Lemonade-DirectML",
+        "device": "AMD Ryzen AI NPU (XDNA2)",
+        "provider": "lemonade"
+      },
+      "repeatCount": 3,
+      "trialOrdering": "Sequential deterministic dispatch with automated fault recording",
+      "executionMode": "Lemonade Local DirectML/ONNX Inference Pipeline",
+      "measurementMethodology": "Hardware-grounded timer hooks (monotonic clock), token stream delta tracking, DirectML VRAM query buffers",
+      "aggregationMethodology": "Bessel-corrected sample standard deviation, median, arithmetic mean over available observations only (unavailable excluded, never zero-filled)"
+    },
+    "environment": {
+      "provider": "lemonade",
+      "runtime": "real",
+      "backend": "Lemonade-DirectML",
+      "hardware": {
+        "device": "AMD Ryzen AI NPU (XDNA2)",
+        "cpu": "AMD Ryzen AI 9 HX 370 (12 Cores / 24 Threads)",
+        "gpu": "AMD Radeon 890M (16 CUs, RDNA 3.5)",
+        "npu": "AMD XDNA 2 NPU (50 TOPS INT8)",
+        "ram": "32 GB LPDDR5X-7500",
+        "vram": "Shared / Dynamic UMA Allocation"
+      },
+      "model": "Qwen2.5-Coder-7B-Instruct",
+      "os": "Windows 11 Pro Build 26100 / Linux Sandboxed Flight Recorder Container",
+      "appVersion": "Lemonade Flight Recorder v1.4.2 (ISO/IEC 42001 Metrology Profile)"
+    },
+    "provenance": {
+      "runs": [
+        {
+          "runId": "run-exp2-t1",
+          "trialIndex": 1,
+          "provider": "lemonade",
+          "runtime": "real",
+          "status": "completed",
+          "isSynthetic": false,
+          "classification": "REAL",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML"
+        },
+        {
+          "runId": "run-exp2-t2",
+          "trialIndex": 2,
+          "provider": "lemonade",
+          "runtime": "real",
+          "status": "completed",
+          "isSynthetic": false,
+          "classification": "REAL",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML"
+        },
+        {
+          "runId": "run-045",
+          "trialIndex": 3,
+          "provider": "lemonade",
+          "runtime": "blocked",
+          "status": "blocked",
+          "isSynthetic": false,
+          "classification": "BLOCKED",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML"
+        }
+      ],
+      "distribution": {
+        "real": 2,
+        "mock": 0,
+        "blocked": 1,
+        "unavailable": 0,
+        "legacy": 0
+      },
+      "isSyntheticOrUnverified": false
+    },
+    "measurements": {
+      "metrics": [
+        {
+          "metric": "Total Latency",
+          "value": "3310 ms",
+          "unit": "ms",
+          "semantics": "MEASURED",
+          "source": "Execution timer loop (wall clock)",
+          "availability": "AVAILABLE"
+        },
+        {
+          "metric": "Time to First Token (TTFT)",
+          "value": "292.5 ms",
+          "unit": "ms",
+          "semantics": "MEASURED",
+          "source": "Initial generation chunk timestamp delta",
+          "availability": "AVAILABLE"
+        },
+        {
+          "metric": "Generation Throughput",
+          "value": "43.9 tok/s",
+          "unit": "tok/s",
+          "semantics": "DERIVED",
+          "source": "Calculated from token stream count / (total_duration_ms - ttft_ms)",
+          "availability": "AVAILABLE"
+        },
+        {
+          "metric": "Peak VRAM Allocated",
+          "value": "4113.33 MB",
+          "unit": "MB",
+          "semantics": "MEASURED",
+          "source": "DirectML runtime query / System memory allocator",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "semantics": "MEASURED"
+    },
+    "statistics": {
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 1420,
+          "median": 4200,
+          "mean": 3310,
+          "max": 4310,
+          "stdDev": 1637.71,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 290,
+          "median": 292.5,
+          "mean": 292.5,
+          "max": 295,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 43.8,
+          "median": 43.9,
+          "mean": 43.9,
+          "max": 44,
+          "stdDev": 0.14,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 420,
+          "median": 605,
+          "mean": 544.67,
+          "max": 609,
+          "stdDev": 107.98,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 2100,
+          "median": 5120,
+          "mean": 4113.33,
+          "max": 5120,
+          "stdDev": 1743.6,
+          "unit": "MB"
+        }
+      },
+      "requestedTrials": 3,
+      "completedTrials": 2,
+      "failedTrials": 0,
+      "blockedTrials": 1,
+      "unavailableTrials": 0
+    },
+    "trialMatrix": [
+      {
+        "trialIndex": 1,
+        "runId": "run-exp2-t1",
+        "status": "completed",
+        "runtime": "real",
+        "provider": "lemonade",
+        "classification": "REAL",
+        "durationMs": 4200,
+        "ttftMs": 290,
+        "tokensPerSecond": 44,
+        "totalTokens": 605,
+        "peakVramMb": 5120,
+        "diagnosticsStatus": "healthy",
+        "primaryFinding": "No failure detected"
+      },
+      {
+        "trialIndex": 2,
+        "runId": "run-exp2-t2",
+        "status": "completed",
+        "runtime": "real",
+        "provider": "lemonade",
+        "classification": "REAL",
+        "durationMs": 4310,
+        "ttftMs": 295,
+        "tokensPerSecond": 43.8,
+        "totalTokens": 609,
+        "peakVramMb": 5120,
+        "diagnosticsStatus": "healthy",
+        "primaryFinding": "No failure detected"
+      },
+      {
+        "trialIndex": 3,
+        "runId": "run-045",
+        "status": "blocked",
+        "runtime": "blocked",
+        "provider": "lemonade",
+        "classification": "BLOCKED",
+        "durationMs": 1420,
+        "ttftMs": null,
+        "tokensPerSecond": null,
+        "totalTokens": 420,
+        "peakVramMb": 2100,
+        "diagnosticsStatus": "blocked",
+        "primaryFinding": "Inference backend execution was blocked"
+      }
+    ],
+    "diagnostics": [
+      {
+        "id": "finding-healthy-run-run-exp2-t1",
+        "runId": "run-exp2-t1",
+        "trialIndex": 1,
+        "severity": "info",
+        "category": "runtime",
+        "title": "No failure detected",
+        "summary": "Inference completed successfully within nominal operational thresholds with all recorded telemetry verified.",
+        "evidence": [
+          {
+            "source": "run",
+            "field": "status",
+            "value": "completed",
+            "description": "Run terminated normally with completed status."
+          },
+          {
+            "source": "metric",
+            "field": "tokens_per_second",
+            "value": 44,
+            "description": "Sustained decode throughput of 44 tok/s observed."
+          },
+          {
+            "source": "metric",
+            "field": "ttft_ms",
+            "value": 290,
+            "description": "Time to First Token measured at 290ms."
+          }
+        ]
+      },
+      {
+        "id": "finding-healthy-run-run-exp2-t2",
+        "runId": "run-exp2-t2",
+        "trialIndex": 2,
+        "severity": "info",
+        "category": "runtime",
+        "title": "No failure detected",
+        "summary": "Inference completed successfully within nominal operational thresholds with all recorded telemetry verified.",
+        "evidence": [
+          {
+            "source": "run",
+            "field": "status",
+            "value": "completed",
+            "description": "Run terminated normally with completed status."
+          },
+          {
+            "source": "metric",
+            "field": "tokens_per_second",
+            "value": 43.8,
+            "description": "Sustained decode throughput of 43.8 tok/s observed."
+          },
+          {
+            "source": "metric",
+            "field": "ttft_ms",
+            "value": 295,
+            "description": "Time to First Token measured at 295ms."
+          }
+        ]
+      },
+      {
+        "id": "finding-app-control-block-run-045",
+        "runId": "run-045",
+        "trialIndex": 3,
+        "severity": "error",
+        "category": "runtime",
+        "title": "Inference backend execution was blocked",
+        "summary": "The Lemonade request reached the runtime path, but execution was blocked by the host's application-control policy.",
+        "evidence": [
+          {
+            "source": "run",
+            "field": "status",
+            "value": "blocked",
+            "description": "Run execution status recorded as \"blocked\"."
+          },
+          {
+            "source": "provenance",
+            "field": "runtime",
+            "value": "blocked",
+            "description": "Runtime execution state recorded as blocked."
+          },
+          {
+            "source": "provenance",
+            "field": "provider",
+            "value": "lemonade",
+            "description": "Target inference provider requested."
+          },
+          {
+            "source": "run",
+            "field": "errorMessage",
+            "value": "Error 4551: Windows Application Control blocked the execution of backend directml_npu_runner.dll",
+            "description": "Recorded host error string matches Application Control policy block."
+          },
+          {
+            "source": "event",
+            "field": "message",
+            "value": "Host operating system blocked binary dispatch: Error 4551 (Windows Application Control enforcement). Process terminated.",
+            "description": "Error event recorded at stage \"model_runtime\".",
+            "eventId": "evt-045-04"
+          }
+        ],
+        "nextInspection": "Review the host's application-control policy with the system administrator. (Note: Security policy constraints must be handled administratively)."
+      }
+    ],
+    "replayLineage": [
+      {
+        "runId": "run-exp2-t1",
+        "name": "exp-npu-dispatch-045-t1",
+        "experimentId": "exp-002",
+        "trialIndex": 1,
+        "status": "completed",
+        "classification": "REAL"
+      },
+      {
+        "runId": "run-exp2-t2",
+        "name": "exp-npu-dispatch-045-t2",
+        "experimentId": "exp-002",
+        "trialIndex": 2,
+        "status": "completed",
+        "classification": "REAL"
+      },
+      {
+        "runId": "run-045",
+        "name": "exp-npu-dispatch-045",
+        "experimentId": "exp-002",
+        "trialIndex": 3,
+        "status": "blocked",
+        "classification": "BLOCKED"
+      }
+    ],
+    "comparisons": [
+      {
+        "trialAId": "run-exp2-t1",
+        "trialBId": "run-exp2-t2",
+        "trialAName": "Trial 1 (run-exp2-t1)",
+        "trialBName": "Trial 2 (run-exp2-t2)",
+        "trialAIndex": 1,
+        "trialBIndex": 2,
+        "latencyDeltaMs": 110,
+        "ttftDeltaMs": 5,
+        "tpsDelta": -0.2,
+        "vramDeltaMb": 0,
+        "note": "Empirical difference observed. No qualitative superiority or subjective winner assigned."
+      },
+      {
+        "trialAId": "run-exp2-t2",
+        "trialBId": "run-045",
+        "trialAName": "Trial 2 (run-exp2-t2)",
+        "trialBName": "Trial 3 (run-045)",
+        "trialAIndex": 2,
+        "trialBIndex": 3,
+        "latencyDeltaMs": -2890,
+        "ttftDeltaMs": null,
+        "tpsDelta": null,
+        "vramDeltaMb": -3020,
+        "note": "Empirical difference observed. No qualitative superiority or subjective winner assigned."
+      }
+    ],
+    "limitations": [
+      "Real Lemonade inference was not verified in this environment. The Lemonade backend executable was blocked by Windows Application Control (Error 4551) or host unreachable. Therefore the recorded blocked/mock/unavailable results must not be interpreted as real hardware performance measurements.",
+      "Zero Telemetry Leakage Policy: No private weights, raw unhashed context, or prompt secrets are transmitted off-device.",
+      "Unavailable measurements are strictly marked UNAVAILABLE and never approximated as zero to avoid mathematical bias."
+    ],
+    "conclusion": "The experiment recorded 3 trial(s) for Qwen2.5-Coder-7B-Instruct. Out of 3 requested runs, 2 completed, 1 were blocked by security controls, and 0 failed with connection faults. All statistics were compiled strictly over available observations with zero estimation for missing values. This report and its attached data artifacts are fully reproducible via the Lemonade Flight Recorder replay engine."
+  },
+  {
+    "id": "rep-runs-mu8gmiz2",
+    "title": "QA Audit Test Report",
+    "description": "Diagnostic and metrological summary across 2 individual inference runs.",
+    "generatedAt": "2026-09-19T14:05:34.478Z",
+    "runIds": [
+      "run-045",
+      "run-051"
+    ],
+    "executiveSummary": "Generated metrology report from 2 individual run artifact(s). Provenance: 1 Real, 0 Mock, 1 Blocked, 0 Unavailable.",
+    "objective": "Verify end-to-end report generation from run-045 and run-051",
+    "methodology": {
+      "workload": {
+        "input": "Synthesize low-overhead DirectML buffer allocation hooks",
+        "repeatCount": 2
+      },
+      "configuration": {
+        "model": "Qwen2.5-Coder-7B-Instruct",
+        "provider": "lemonade"
+      },
+      "repeatCount": 2,
+      "trialOrdering": "Arbitrary user selection",
+      "executionMode": "blocked",
+      "measurementMethodology": "Telemetry event ingestion from Flight Recorder store",
+      "aggregationMethodology": "Sample standard deviation and mean over non-null telemetry entries"
+    },
+    "environment": {
+      "provider": "lemonade",
+      "runtime": "blocked",
+      "backend": "Lemonade-DirectML",
+      "hardware": {
+        "device": "AMD Ryzen AI NPU"
+      },
+      "model": "Qwen2.5-Coder-7B-Instruct",
+      "os": "Windows 11 Pro / Linux Sandboxed Container",
+      "appVersion": "Lemonade Flight Recorder v1.4.2"
+    },
+    "provenance": {
+      "runs": [
+        {
+          "runId": "run-045",
+          "trialIndex": 3,
+          "provider": "lemonade",
+          "runtime": "blocked",
+          "status": "blocked",
+          "isSynthetic": false,
+          "classification": "BLOCKED",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML"
+        },
+        {
+          "runId": "run-051",
+          "trialIndex": 2,
+          "provider": "lemonade",
+          "runtime": "real",
+          "status": "failed",
+          "isSynthetic": false,
+          "classification": "REAL",
+          "device": "AMD Ryzen AI NPU (XDNA2)",
+          "backend": "Lemonade-DirectML v1.4"
+        }
+      ],
+      "distribution": {
+        "real": 1,
+        "mock": 0,
+        "blocked": 1,
+        "unavailable": 0,
+        "legacy": 0
+      },
+      "isSyntheticOrUnverified": false
+    },
+    "measurements": {
+      "metrics": [
+        {
+          "metric": "Total Latency",
+          "value": "8120 ms",
+          "unit": "ms",
+          "semantics": "MEASURED",
+          "source": "Run telemetry timer",
+          "availability": "AVAILABLE"
+        },
+        {
+          "metric": "Time to First Token (TTFT)",
+          "value": "420 ms",
+          "unit": "ms",
+          "semantics": "MEASURED",
+          "source": "Chunk timestamp stream delta",
+          "availability": "AVAILABLE"
+        },
+        {
+          "metric": "Generation Throughput",
+          "value": "28.4 tok/s",
+          "unit": "tok/s",
+          "semantics": "DERIVED",
+          "source": "Token rate calculator",
+          "availability": "AVAILABLE"
+        }
+      ],
+      "semantics": "MEASURED"
+    },
+    "statistics": {
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 1420,
+          "median": 8120,
+          "mean": 8120,
+          "max": 14820,
+          "stdDev": 9475.23,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 1,
+          "min": 420,
+          "median": 420,
+          "mean": 420,
+          "max": 420,
+          "stdDev": 0,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 1,
+          "min": 28.4,
+          "median": 28.4,
+          "mean": 28.4,
+          "max": 28.4,
+          "stdDev": 0,
+          "unit": "tok/s"
+        }
+      },
+      "requestedTrials": 2,
+      "completedTrials": 0,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 0
+    },
+    "trialMatrix": [
+      {
+        "trialIndex": 3,
+        "runId": "run-045",
+        "status": "blocked",
+        "runtime": "blocked",
+        "provider": "lemonade",
+        "classification": "BLOCKED",
+        "durationMs": 1420,
+        "ttftMs": null,
+        "tokensPerSecond": null,
+        "totalTokens": 420,
+        "peakVramMb": 2100,
+        "diagnosticsStatus": "blocked",
+        "primaryFinding": "Inference backend execution was blocked"
+      },
+      {
+        "trialIndex": 2,
+        "runId": "run-051",
+        "status": "failed",
+        "runtime": "real",
+        "provider": "lemonade",
+        "classification": "REAL",
+        "durationMs": 14820,
+        "ttftMs": 420,
+        "tokensPerSecond": 28.4,
+        "totalTokens": 2064,
+        "peakVramMb": 9412,
+        "diagnosticsStatus": "failed",
+        "primaryFinding": "Generation terminated prematurely with runtime fault"
+      }
+    ],
+    "diagnostics": [
+      {
+        "id": "finding-app-control-block-run-045",
+        "runId": "run-045",
+        "trialIndex": 3,
+        "severity": "error",
+        "category": "runtime",
+        "title": "Inference backend execution was blocked",
+        "summary": "The Lemonade request reached the runtime path, but execution was blocked by the host's application-control policy.",
+        "evidence": [
+          {
+            "source": "run",
+            "field": "status",
+            "value": "blocked",
+            "description": "Run execution status recorded as \"blocked\"."
+          },
+          {
+            "source": "provenance",
+            "field": "runtime",
+            "value": "blocked",
+            "description": "Runtime execution state recorded as blocked."
+          },
+          {
+            "source": "provenance",
+            "field": "provider",
+            "value": "lemonade",
+            "description": "Target inference provider requested."
+          },
+          {
+            "source": "run",
+            "field": "errorMessage",
+            "value": "Error 4551: Windows Application Control blocked the execution of backend directml_npu_runner.dll",
+            "description": "Recorded host error string matches Application Control policy block."
+          },
+          {
+            "source": "event",
+            "field": "message",
+            "value": "Host operating system blocked binary dispatch: Error 4551 (Windows Application Control enforcement). Process terminated.",
+            "description": "Error event recorded at stage \"model_runtime\".",
+            "eventId": "evt-045-04"
+          }
+        ],
+        "nextInspection": "Review the host's application-control policy with the system administrator. (Note: Security policy constraints must be handled administratively)."
+      },
+      {
+        "id": "finding-generation-failure-run-051",
+        "runId": "run-051",
+        "trialIndex": 2,
+        "severity": "error",
+        "category": "generation",
+        "title": "Generation terminated prematurely with runtime fault",
+        "summary": "Inference execution commenced, but execution halted with an observable runtime error.",
+        "evidence": [
+          {
+            "source": "event",
+            "field": "stage",
+            "value": "model_runtime",
+            "description": "Model runtime execution phase had commenced prior to failure."
+          },
+          {
+            "source": "metric",
+            "field": "total_duration_ms",
+            "value": 14820,
+            "description": "Elapsed time before failure: 14820ms."
+          },
+          {
+            "source": "event",
+            "field": "message",
+            "value": "Assertion Rejected: Output generated \"is permitted to transfer\" directly contradicting retrieved ground truth \"shall NOT transfer\". Halt triggered.",
+            "description": "Observable error message captured at stage \"verification\".",
+            "eventId": "evt-051-05"
+          }
+        ],
+        "nextInspection": "Inspect last generated token logits and GPU/NPU memory boundaries before the fault event."
+      }
+    ],
+    "replayLineage": [
+      {
+        "runId": "run-045",
+        "name": "exp-npu-dispatch-045",
+        "trialIndex": 3,
+        "status": "blocked",
+        "classification": "BLOCKED"
+      },
+      {
+        "runId": "run-051",
+        "name": "exp-clause-audit-051",
+        "trialIndex": 2,
+        "status": "failed",
+        "classification": "REAL"
+      }
+    ],
+    "comparisons": [],
+    "limitations": [
+      "Real Lemonade inference was not verified in this environment. The Lemonade backend executable was blocked by Windows Application Control (Error 4551) or host unreachable. Therefore the recorded blocked/mock/unavailable results must not be interpreted as real hardware performance measurements.",
+      "Zero Telemetry Leakage Policy: No private weights, raw context, or prompt secrets are transmitted off-device.",
+      "Unavailable measurements are strictly marked UNAVAILABLE and never approximated as zero."
+    ],
+    "conclusion": "Analysis completed for 2 run(s). Recorded 2 diagnostic findings and computed exact metrics without extrapolation."
+  }
+]

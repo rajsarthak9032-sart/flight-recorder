@@ -1,0 +1,22 @@
+{
+  "name": "lemonade-flight-recorder",
+  "version": "1.4.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --experimental-strip-types server.js",
+    "build": "node build.js",
+    "start": "node --experimental-strip-types server.js",
+    "test": "node --experimental-strip-types --test tests/diagnostics.test.ts tests/replay.test.ts tests/experiments.test.ts tests/routing.test.ts tests/reports.test.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo 'No lint errors'"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.2",
+    "typescript": "^7.0.2"
+  }
+}

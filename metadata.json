@@ -1,0 +1,8 @@
+{
+  "name": "Lemonade Flight Recorder",
+  "description": "High-precision metrology, live telemetry, replay lab, failure diagnostics, controlled experiments, and reproducible research reports for local AI hardware and model inference.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

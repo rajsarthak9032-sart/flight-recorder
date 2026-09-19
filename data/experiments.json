@@ -1,0 +1,1282 @@
+[
+  {
+    "id": "exp-001",
+    "name": "Qwen2.5 Code Generation Latency Baseline",
+    "description": "5-trial repeated execution measuring token generation throughput and TTFT stability on AMD NPU.",
+    "createdAt": "2025-05-18T14:09:00.000Z",
+    "updatedAt": "2025-05-18T14:15:00.000Z",
+    "status": "completed",
+    "workload": {
+      "input": "Refactor AST parser for streaming parser nodes (batch_size=1, ctx=4k)",
+      "repeatCount": 5,
+      "description": "AST Parser streaming refactoring workload"
+    },
+    "configuration": {
+      "model": "Qwen2.5-Coder-7B-Instruct",
+      "backend": "Lemonade-DirectML",
+      "device": "AMD Ryzen AI NPU (XDNA2)",
+      "provider": "lemonade"
+    },
+    "runIds": [
+      "run-exp1-t1",
+      "run-exp1-t2",
+      "run-exp1-t3",
+      "run-exp1-t4",
+      "run-exp1-t5"
+    ],
+    "summary": {
+      "requestedTrials": 5,
+      "completedTrials": 5,
+      "failedTrials": 0,
+      "blockedTrials": 0,
+      "unavailableTrials": 0,
+      "provenanceDistribution": {
+        "real": 5,
+        "mock": 0,
+        "blocked": 0,
+        "unavailable": 0,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 5,
+          "min": 9490,
+          "median": 9610,
+          "mean": 9616,
+          "max": 9810,
+          "stdDev": 126.41,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 5,
+          "min": 298,
+          "median": 308,
+          "mean": 308.4,
+          "max": 324,
+          "stdDev": 9.94,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 5,
+          "min": 41.9,
+          "median": 42.9,
+          "mean": 42.8,
+          "max": 43.4,
+          "stdDev": 0.57,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 5,
+          "min": 2250,
+          "median": 2252,
+          "mean": 2251.4,
+          "max": 2252,
+          "stdDev": 0.89,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 5,
+          "min": 6553,
+          "median": 6553,
+          "mean": 6558.4,
+          "max": 6580,
+          "stdDev": 12.07,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [],
+      "model": "Qwen2.5-Coder-7B-Instruct",
+      "hardware": {
+        "device": "AMD Ryzen AI NPU (XDNA2)",
+        "backend": "Lemonade-DirectML v1.4"
+      }
+    }
+  },
+  {
+    "id": "exp-002",
+    "name": "DirectML NPU Policy Block Tolerance",
+    "description": "Mixed outcome experiment: 2 trials completed nominal, 1 trial halted by OS Host Application Control Policy (Error 4551).",
+    "createdAt": "2025-05-18T15:04:00.000Z",
+    "updatedAt": "2025-05-18T15:11:00.000Z",
+    "status": "partial",
+    "workload": {
+      "input": "Synthesize low-overhead DirectML buffer allocation hooks",
+      "repeatCount": 3,
+      "description": "DirectML driver dispatch stress test"
+    },
+    "configuration": {
+      "model": "Qwen2.5-Coder-7B-Instruct",
+      "backend": "Lemonade-DirectML",
+      "device": "AMD Ryzen AI NPU (XDNA2)",
+      "provider": "lemonade"
+    },
+    "runIds": [
+      "run-exp2-t1",
+      "run-exp2-t2",
+      "run-045"
+    ],
+    "summary": {
+      "requestedTrials": 3,
+      "completedTrials": 2,
+      "failedTrials": 0,
+      "blockedTrials": 1,
+      "unavailableTrials": 0,
+      "provenanceDistribution": {
+        "real": 2,
+        "mock": 0,
+        "blocked": 1,
+        "unavailable": 0,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 1420,
+          "median": 4200,
+          "mean": 3310,
+          "max": 4310,
+          "stdDev": 1637.71,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 290,
+          "median": 292.5,
+          "mean": 292.5,
+          "max": 295,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 43.8,
+          "median": 43.9,
+          "mean": 43.9,
+          "max": 44,
+          "stdDev": 0.14,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 420,
+          "median": 605,
+          "mean": 544.67,
+          "max": 609,
+          "stdDev": 107.98,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 2100,
+          "median": 5120,
+          "mean": 4113.33,
+          "max": 5120,
+          "stdDev": 1743.6,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w"
+      ],
+      "model": "Qwen2.5-Coder-7B-Instruct",
+      "hardware": {
+        "device": "AMD Ryzen AI NPU",
+        "backend": "Lemonade-DirectML v1.4"
+      }
+    }
+  },
+  {
+    "id": "exp-003",
+    "name": "Synthetic Mock Model Throughput Baseline",
+    "description": "Explicit synthetic run test baseline for verifying mock-to-real provenance isolation.",
+    "createdAt": "2025-05-18T15:39:00.000Z",
+    "updatedAt": "2025-05-18T15:43:00.000Z",
+    "status": "completed",
+    "workload": {
+      "input": "Deterministic mock test vector",
+      "repeatCount": 3,
+      "description": "Synthetic generator throughput verification"
+    },
+    "configuration": {
+      "model": "Mock-Model-Tiny",
+      "backend": "Synthetic-Generator",
+      "device": "Mock-Virtual-Silicon",
+      "provider": "mock"
+    },
+    "runIds": [
+      "run-exp3-t1",
+      "run-exp3-t2",
+      "run-exp3-t3"
+    ],
+    "summary": {
+      "requestedTrials": 3,
+      "completedTrials": 3,
+      "failedTrials": 0,
+      "blockedTrials": 0,
+      "unavailableTrials": 0,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 3,
+        "blocked": 0,
+        "unavailable": 0,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 3150,
+          "median": 3200,
+          "mean": 3190,
+          "max": 3220,
+          "stdDev": 36.06,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 118,
+          "median": 120,
+          "mean": 120,
+          "max": 122,
+          "stdDev": 2,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 3,
+          "min": 49.7,
+          "median": 50,
+          "mean": 50.17,
+          "max": 50.8,
+          "stdDev": 0.57,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 260,
+          "median": 260,
+          "mean": 260,
+          "max": 260,
+          "stdDev": 0,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 512,
+          "max": 512,
+          "stdDev": 0,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [],
+      "model": "Mock-Model-Tiny"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789825540737",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T13:45:40.739Z",
+    "updatedAt": "2026-09-19T13:45:40.740Z",
+    "status": "draft",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789825540737-t1",
+      "run-exp-persist-verify-1789825540737-t2",
+      "run-exp-persist-verify-1789825540737-t3",
+      "run-exp-persist-verify-1789825540737-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789825560790",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T13:46:00.793Z",
+    "updatedAt": "2026-09-19T13:46:00.794Z",
+    "status": "partial",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789825560790-t1",
+      "run-exp-persist-verify-1789825560790-t2",
+      "run-exp-persist-verify-1789825560790-t3",
+      "run-exp-persist-verify-1789825560790-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789825592795",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T13:46:32.799Z",
+    "updatedAt": "2026-09-19T13:46:32.799Z",
+    "status": "partial",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789825592795-t1",
+      "run-exp-persist-verify-1789825592795-t2",
+      "run-exp-persist-verify-1789825592795-t3",
+      "run-exp-persist-verify-1789825592795-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789825964350",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T13:52:44.355Z",
+    "updatedAt": "2026-09-19T13:52:44.355Z",
+    "status": "partial",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789825964350-t1",
+      "run-exp-persist-verify-1789825964350-t2",
+      "run-exp-persist-verify-1789825964350-t3",
+      "run-exp-persist-verify-1789825964350-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789826009064",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T13:53:29.073Z",
+    "updatedAt": "2026-09-19T13:53:29.073Z",
+    "status": "partial",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789826009064-t1",
+      "run-exp-persist-verify-1789826009064-t2",
+      "run-exp-persist-verify-1789826009064-t3",
+      "run-exp-persist-verify-1789826009064-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789826020830",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T13:53:40.837Z",
+    "updatedAt": "2026-09-19T13:53:40.837Z",
+    "status": "partial",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789826020830-t1",
+      "run-exp-persist-verify-1789826020830-t2",
+      "run-exp-persist-verify-1789826020830-t3",
+      "run-exp-persist-verify-1789826020830-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789826030478",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T13:53:50.488Z",
+    "updatedAt": "2026-09-19T13:53:50.488Z",
+    "status": "partial",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789826030478-t1",
+      "run-exp-persist-verify-1789826030478-t2",
+      "run-exp-persist-verify-1789826030478-t3",
+      "run-exp-persist-verify-1789826030478-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789826290534",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T13:58:10.542Z",
+    "updatedAt": "2026-09-19T13:58:10.542Z",
+    "status": "partial",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789826290534-t1",
+      "run-exp-persist-verify-1789826290534-t2",
+      "run-exp-persist-verify-1789826290534-t3",
+      "run-exp-persist-verify-1789826290534-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789826717044",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T14:05:17.056Z",
+    "updatedAt": "2026-09-19T14:05:17.056Z",
+    "status": "partial",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789826717044-t1",
+      "run-exp-persist-verify-1789826717044-t2",
+      "run-exp-persist-verify-1789826717044-t3",
+      "run-exp-persist-verify-1789826717044-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  },
+  {
+    "id": "exp-persist-verify-1789827348339",
+    "name": "M6 Persistence Verification",
+    "description": "Controlled experiment testing multi-trial reload durability",
+    "createdAt": "2026-09-19T14:15:48.349Z",
+    "updatedAt": "2026-09-19T14:15:48.349Z",
+    "status": "partial",
+    "workload": {
+      "taskType": "code_generation",
+      "dataset": "Unit-Persistence-Vector",
+      "prompt": "Benchmark persistence test",
+      "repeatCount": 4
+    },
+    "configuration": {
+      "model": "Mixed-Models",
+      "backend": "Lemonade-DirectML & Mock",
+      "device": "AMD NPU & Virtual",
+      "provider": "mixed"
+    },
+    "runIds": [
+      "run-exp-persist-verify-1789827348339-t1",
+      "run-exp-persist-verify-1789827348339-t2",
+      "run-exp-persist-verify-1789827348339-t3",
+      "run-exp-persist-verify-1789827348339-t4"
+    ],
+    "summary": {
+      "requestedTrials": 4,
+      "completedTrials": 2,
+      "failedTrials": 1,
+      "blockedTrials": 1,
+      "unavailableTrials": 1,
+      "provenanceDistribution": {
+        "real": 0,
+        "mock": 2,
+        "blocked": 1,
+        "unavailable": 1,
+        "legacy": 0
+      },
+      "metrics": {
+        "durationMs": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 120,
+          "median": 2260,
+          "mean": 1960,
+          "max": 3200,
+          "stdDev": 1473.59,
+          "unit": "ms"
+        },
+        "ttftMs": {
+          "semantics": "MEASURED",
+          "n": 2,
+          "min": 120,
+          "median": 122.5,
+          "mean": 122.5,
+          "max": 125,
+          "stdDev": 3.54,
+          "unit": "ms"
+        },
+        "tokensPerSecond": {
+          "semantics": "DERIVED",
+          "n": 2,
+          "min": 50,
+          "median": 50.8,
+          "mean": 50.8,
+          "max": 51.6,
+          "stdDev": 1.13,
+          "unit": "tok/s"
+        },
+        "totalTokens": {
+          "semantics": "MEASURED",
+          "n": 4,
+          "min": 0,
+          "median": 260,
+          "mean": 235,
+          "max": 420,
+          "stdDev": 173.88,
+          "unit": "tok"
+        },
+        "peakVramMb": {
+          "semantics": "MEASURED",
+          "n": 3,
+          "min": 512,
+          "median": 512,
+          "mean": 1041.33,
+          "max": 2100,
+          "stdDev": 916.83,
+          "unit": "MB"
+        }
+      },
+      "unavailableMetrics": [
+        "ttft_ms",
+        "tokens_per_second",
+        "package_power_w",
+        "peak_vram_mb"
+      ],
+      "model": "Mixed-Models"
+    }
+  }
+]

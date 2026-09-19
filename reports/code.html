@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Lemonade Flight Recorder - Reproducible Reports &amp; Metrology Showcase</title>
+  <meta name="description" content="Reproducible AI metrology reports, ISO/IEC 42001 compliance logs, and verifiable benchmark audit trails."/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    /* Custom clean scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #091519; }
+    ::-webkit-scrollbar-thumb { background: #202c31; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #303b40; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#4edea3",
+            "surface-dim": "#091519",
+            "surface-bright": "#303b40",
+            "surface-container-lowest": "#051014",
+            "surface": "#091519",
+            "surface-container-high": "#202c31",
+            "surface-container-low": "#121d22",
+            "primary": "#ffc557",
+            "primary-container": "#e6a820",
+            "on-primary": "#422d00",
+            "surface-container": "#162126",
+            "on-surface": "#d8e4eb",
+            "on-surface-variant": "#d4c4ae",
+            "background": "#091519",
+            "error": "#ffb4ab",
+            "error-container": "#93000a"
+          },
+          fontFamily: {
+            "display-lg": ["JetBrains Mono"],
+            "headline-lg": ["Geist"],
+            "headline-sm": ["Geist"],
+            "body-md": ["Geist"],
+            "body-sm": ["Geist"],
+            "label-caps": ["JetBrains Mono"],
+            "code-inline": ["JetBrains Mono"],
+            "timestamp": ["JetBrains Mono"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-md text-on-surface min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container">
+  <!-- Authoritative Left Sidebar -->
+  <aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between select-none border-r border-surface-container-high/30">
+    <div class="flex flex-col">
+      <div class="h-14 px-4 flex items-center justify-between bg-surface-container-lowest border-b border-surface-container-high/30">
+        <div class="flex items-center gap-2 min-w-0">
+          <img alt="Lemonade Flight Recorder Logo" class="h-6 w-auto object-contain shrink-0" src="/lemonade-logo.png"/>
+          <div class="flex flex-col min-w-0">
+            <span class="font-semibold text-sm text-on-surface truncate tracking-tight">Flight Recorder</span>
+            <span class="text-[10px] text-primary tracking-widest uppercase font-mono">LEMONADE METROLOGY</span>
+          </div>
+        </div>
+        <span class="text-[10px] px-1.5 py-0.5 bg-surface-container-high text-on-surface-variant rounded font-semibold font-mono">LOCAL v1.4.2</span>
+      </div>
+      <div class="px-4 py-2 text-[10px] text-on-surface-variant/70 uppercase tracking-wider font-mono">Instruments &amp; telemetry</div>
+      <nav class="flex flex-col px-2 gap-0.5" data-nav="sidebar">
+        <a class="flex items-center gap-3 px-3 py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="command-center" href="/">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">space_dashboard</span>
+          <span class="text-xs tracking-tight">Command Center</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="flight-recorder" href="/flight-recorder">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">show_chart</span>
+          <span class="text-xs tracking-tight">Flight Recorder</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="experiments" href="/experiments">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">biotech</span>
+          <span class="text-xs tracking-tight">Experiments</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="replay" href="/replay">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">compare</span>
+          <span class="text-xs tracking-tight">Replay Lab</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="diagnostics" href="/diagnostics">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">troubleshoot</span>
+          <span class="text-xs tracking-tight">Failure Diagnostics</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="models" href="/models">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">deployed_code</span>
+          <span class="text-xs tracking-tight">Models</span>
+        </a>
+        <a class="flex items-center gap-3 px-3 py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="hardware" href="/hardware">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">memory</span>
+          <span class="text-xs tracking-tight">Hardware</span>
+        </a>
+        <a aria-current="page" class="flex items-center gap-3 px-3 py-1.5 rounded transition-colors group bg-surface-container text-primary font-medium" data-path="reports" href="/reports">
+          <span class="material-symbols-outlined text-[18px] shrink-0 text-primary">description</span>
+          <span class="text-xs tracking-tight">Reports</span>
+        </a>
+      </nav>
+    </div>
+    <div class="p-4 bg-surface-container-lowest/80 flex flex-col gap-1 border-t border-surface-container-high/30">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-1.5">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_6px_rgba(78,222,163,0.6)]"></span>
+          <span class="text-xs text-on-surface font-medium">Report Metrology</span>
+        </div>
+        <span class="text-[10px] font-mono text-secondary uppercase font-semibold">Ready</span>
+      </div>
+      <div class="flex items-center justify-between py-1 px-2 rounded bg-surface-container-high">
+        <span class="text-[10px] font-mono text-on-surface-variant">AUDIT STANDARD</span>
+        <span class="text-[10px] font-mono text-secondary font-semibold tracking-wider">ISO/IEC 42001</span>
+      </div>
+      <div class="flex items-center justify-between pt-1 text-on-surface-variant">
+        <a class="flex items-center gap-1 text-on-surface-variant hover:text-on-surface transition-colors" data-path="settings" href="/settings">
+          <span class="material-symbols-outlined text-[16px]">settings</span>
+          <span class="text-xs">Settings</span>
+        </a>
+        <span class="text-[10px] font-mono text-on-surface-variant/60">REPRODUCIBLE</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="pl-64 flex flex-col min-h-screen">
+    <header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-lowest/95 backdrop-blur-xl z-40 px-6 flex items-center justify-between gap-4 select-none border-b border-surface-container-high/30">
+      <div class="flex items-center gap-4 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+          <span class="text-xs font-mono text-on-surface tracking-wider font-semibold uppercase">Reproducible Research Reports</span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-surface-container-high text-secondary font-semibold">MILESTONE 7</span>
+        </div>
+        <div class="hidden md:flex items-center gap-2 px-2 py-0.5 rounded bg-surface-container-high font-mono text-[11px] text-on-surface-variant">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          <span>Zero Telemetry Leak • Grounded Evidence Only</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btn-open-builder" class="px-3.5 py-1.5 bg-primary text-on-primary font-mono text-xs font-semibold rounded hover:bg-primary/90 flex items-center gap-1.5 transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-[16px]">post_add</span>
+          <span>Generate New Report</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="relative pt-14 w-full flex-1 flex bg-background">
+      <!-- Left Panel: Report Library -->
+      <section class="w-80 border-r border-surface-container-high/30 bg-surface-container-lowest/60 flex flex-col shrink-0 h-[calc(100vh-3.5rem)] sticky top-14">
+        <div class="p-3 border-b border-surface-container-high/30 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono text-on-surface-variant uppercase tracking-wider font-semibold">Report Archives</span>
+            <span id="reports-count-badge" class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-surface-container-high text-primary">0</span>
+          </div>
+          <div class="relative">
+            <input id="search-reports" type="text" placeholder="Filter by title, model, id..." class="w-full bg-surface-container-low border border-surface-container-high/50 rounded px-2.5 py-1 text-xs font-mono text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:border-primary"/>
+          </div>
+        </div>
+
+        <div id="reports-list" class="flex-1 overflow-y-auto p-2 flex flex-col gap-1.5">
+          <!-- Populated by JS -->
+          <div class="p-4 text-center text-xs font-mono text-on-surface-variant/60">Loading reports...</div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Report Viewer & Interactive Metrology Workspace -->
+      <section class="flex-1 overflow-y-auto p-6 flex flex-col gap-6 max-w-5xl mx-auto">
+        <div id="report-view-container" class="flex flex-col gap-6">
+          <div class="p-12 text-center text-on-surface-variant font-mono text-sm">Select a report from the library to inspect evidence and generate exports.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal: Generate New Report -->
+  <div id="builder-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-surface-container-low border border-surface-container-high rounded-xl max-w-xl w-full p-6 flex flex-col gap-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-surface-container-high/40 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[20px]">science</span>
+          <h2 class="text-sm font-bold font-mono text-on-surface uppercase tracking-wider">Report Builder</h2>
+        </div>
+        <button id="btn-close-modal" class="text-on-surface-variant hover:text-on-surface material-symbols-outlined text-[20px]">close</button>
+      </div>
+
+      <div class="flex flex-col gap-3 font-mono text-xs">
+        <div>
+          <label class="block text-[11px] text-on-surface-variant uppercase font-semibold mb-1">Source Dataset</label>
+          <div class="flex gap-4 mb-2 text-xs">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="report-source-type" value="experiment" checked class="accent-primary"/>
+              <span>From Experiment Engine</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="report-source-type" value="runs" class="accent-primary"/>
+              <span>From Custom Run IDs</span>
+            </label>
+          </div>
+
+          <div id="experiment-select-container">
+            <select id="select-experiment-id" class="w-full bg-surface-container-high border border-surface-container-high/60 rounded px-3 py-2 text-xs text-on-surface focus:outline-none focus:border-primary">
+              <option value="">Loading experiments...</option>
+            </select>
+          </div>
+
+          <div id="runs-select-container" class="hidden">
+            <div id="runs-checkbox-list" class="max-h-36 overflow-y-auto border border-surface-container-high/60 rounded p-2 bg-surface-container-lowest flex flex-col gap-1">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] text-on-surface-variant uppercase font-semibold mb-1">Report Title (Optional)</label>
+          <input id="input-report-title" type="text" placeholder="e.g., DirectML Ryzen AI 9 HX 370 Metrology Benchmark" class="w-full bg-surface-container-high border border-surface-container-high/60 rounded px-3 py-1.5 text-xs text-on-surface focus:outline-none focus:border-primary"/>
+        </div>
+
+        <div>
+          <label class="block text-[11px] text-on-surface-variant uppercase font-semibold mb-1">Research Objective (Optional)</label>
+          <textarea id="input-report-objective" rows="2" placeholder="e.g., Evaluate latency stability, TTFT variance, and failure resilience under repeated execution..." class="w-full bg-surface-container-high border border-surface-container-high/60 rounded px-3 py-1.5 text-xs text-on-surface focus:outline-none focus:border-primary"></textarea>
+        </div>
+
+        <div class="p-3 bg-surface-container-lowest border border-surface-container-high/30 rounded text-[11px] text-on-surface-variant flex items-start gap-2">
+          <span class="material-symbols-outlined text-secondary text-[16px] shrink-0">verified</span>
+          <span>Deterministic synthesis: Statistics, diagnostics, and lineage trees are compiled strictly from existing Flight Recorder database logs without hallucination.</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-surface-container-high/40">
+        <button id="btn-cancel-modal" class="px-3 py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-mono text-xs rounded transition-colors">Cancel</button>
+        <button id="btn-submit-generate" class="px-4 py-1.5 bg-primary text-on-primary font-mono text-xs font-semibold rounded hover:bg-primary/90 flex items-center gap-1.5 transition-colors">
+          <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+          <span>Compile Report</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    let reports = [];
+    let activeReportId = null;
+    let experiments = [];
+    let runs = [];
+
+    async function loadData() {
+      try {
+        const [repRes, expRes, runRes] = await Promise.all([
+          fetch('/api/reports'),
+          fetch('/api/experiments'),
+          fetch('/api/runs'),
+        ]);
+
+        if (repRes.ok) {
+          const data = await repRes.json();
+          reports = data.reports || [];
+        }
+
+        if (expRes.ok) {
+          const data = await expRes.json();
+          experiments = data.experiments || [];
+        }
+
+        if (runRes.ok) {
+          const data = await runRes.json();
+          runs = data.runs || [];
+        }
+
+        renderReportsList();
+        populateModalSources();
+
+        if (reports.length > 0) {
+          selectReport(reports[0].id);
+        }
+      } catch (err) {
+        console.error('Failed to load initial data:', err);
+      }
+    }
+
+    function renderReportsList() {
+      const container = document.getElementById('reports-list');
+      const countBadge = document.getElementById('reports-count-badge');
+      countBadge.textContent = reports.length;
+
+      const searchTerm = (document.getElementById('search-reports').value || '').toLowerCase();
+      const filtered = reports.filter(r => 
+        r.title.toLowerCase().includes(searchTerm) || 
+        r.id.toLowerCase().includes(searchTerm) ||
+        (r.environment?.model || '').toLowerCase().includes(searchTerm)
+      );
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="p-4 text-center text-xs font-mono text-on-surface-variant/50">No reports matched</div>';
+        return;
+      }
+
+      container.innerHTML = filtered.map(r => {
+        const isActive = r.id === activeReportId;
+        const isSynthetic = r.provenance?.isSyntheticOrUnverified;
+        const p = r.provenance?.distribution || { real: 0, mock: 0, blocked: 0 };
+        const dateStr = new Date(r.generatedAt).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+        return `
+          <button onclick="selectReport('${r.id}')" class="w-full text-left p-2.5 rounded-lg border transition-all flex flex-col gap-1.5 ${
+            isActive 
+              ? 'bg-surface-container-high border-primary text-on-surface' 
+              : 'bg-surface-container-low/50 border-surface-container-high/30 hover:bg-surface-container text-on-surface-variant hover:text-on-surface'
+          }">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[10px] text-primary font-semibold tracking-wider">${r.id}</span>
+              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded font-semibold ${
+                isSynthetic ? 'bg-primary/15 text-primary' : 'bg-secondary/15 text-secondary'
+              }">${isSynthetic ? 'SYNTHETIC' : 'REAL SILICON'}</span>
+            </div>
+            <div class="text-xs font-semibold font-mono text-on-surface truncate">${escapeHtml(r.title)}</div>
+            <div class="flex items-center justify-between text-[10px] font-mono text-on-surface-variant/70">
+              <span>${r.environment?.model ? escapeHtml(r.environment.model.split('-')[0]) : 'Model'}</span>
+              <span>${dateStr}</span>
+            </div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectReport(id) {
+      activeReportId = id;
+      renderReportsList();
+      const report = reports.find(r => r.id === id);
+      if (report) {
+        renderReportViewer(report);
+      }
+    }
+
+    function renderReportViewer(report) {
+      const container = document.getElementById('report-view-container');
+      const isSynthetic = report.provenance?.isSyntheticOrUnverified;
+      const p = report.provenance?.distribution || { real: 0, mock: 0, blocked: 0, unavailable: 0, legacy: 0 };
+      const sm = report.statistics?.metrics || {};
+
+      container.innerHTML = `
+        <!-- Report Header & Actions -->
+        <div class="bg-surface-container-low border border-surface-container-high/50 rounded-xl p-5 flex flex-col gap-4 shadow-sm">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-surface-container-high/30 pb-4">
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono text-primary font-bold tracking-wider">${report.id}</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded font-semibold ${
+                  isSynthetic ? 'bg-primary/20 text-primary border border-primary/30' : 'bg-secondary/20 text-secondary border border-secondary/30'
+                }">${isSynthetic ? 'SYNTHETIC / UNVERIFIED' : 'HARDWARE GROUNDED'}</span>
+                ${report.experimentId ? `<span class="text-[10px] font-mono text-on-surface-variant/70">EXP: ${report.experimentId}</span>` : ''}
+              </div>
+              <h1 class="text-lg font-bold font-mono text-on-surface">${escapeHtml(report.title)}</h1>
+              <span class="text-xs text-on-surface-variant font-mono">Generated: ${report.generatedAt} • ISO/IEC 42001 Metrology Profile</span>
+            </div>
+
+            <!-- Export Toolbar -->
+            <div class="flex flex-wrap items-center gap-1.5 shrink-0">
+              <a href="/api/reports/${report.id}/export?format=json" download="${report.id}-report.json" class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface font-mono text-xs rounded flex items-center gap-1 transition-colors">
+                <span class="material-symbols-outlined text-[14px]">data_object</span>
+                <span>JSON</span>
+              </a>
+              <a href="/api/reports/${report.id}/export?format=csv" download="${report.id}-report.csv" class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface font-mono text-xs rounded flex items-center gap-1 transition-colors">
+                <span class="material-symbols-outlined text-[14px]">table_chart</span>
+                <span>CSV</span>
+              </a>
+              <a href="/api/reports/${report.id}/export?format=md" download="${report.id}-report.md" class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface font-mono text-xs rounded flex items-center gap-1 transition-colors">
+                <span class="material-symbols-outlined text-[14px]">markdown</span>
+                <span>Markdown</span>
+              </a>
+              <a href="/api/reports/${report.id}/export?format=html" target="_blank" class="px-2.5 py-1.5 bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface font-mono text-xs rounded flex items-center gap-1 transition-colors">
+                <span class="material-symbols-outlined text-[14px]">html</span>
+                <span>HTML</span>
+              </a>
+              <a href="/api/reports/${report.id}/bundle" download="${report.id}-reproducibility-bundle.json" class="px-3 py-1.5 bg-secondary text-surface-dim font-mono text-xs font-semibold rounded hover:bg-secondary/90 flex items-center gap-1 transition-colors shadow-sm">
+                <span class="material-symbols-outlined text-[15px]">inventory_2</span>
+                <span>Export Bundle</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Real Runtime Boundary Warning if applicable -->
+          ${isSynthetic ? `
+            <div class="p-3.5 bg-primary/10 border border-primary/30 rounded-lg flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">warning</span>
+              <div class="flex flex-col gap-0.5 text-xs font-mono">
+                <span class="font-semibold text-primary">REAL RUNTIME BOUNDARY NOTICE</span>
+                <span class="text-on-surface-variant">Real Lemonade hardware inference was not verified in this environment. The Lemonade backend executable was blocked by Windows Application Control or host unreachable. The recorded results originate from synthetic test drivers or failure traces and must not be interpreted as physical AMD silicon performance.</span>
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- Metric Highlights Bento -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3 bg-surface-container rounded-lg border border-surface-container-high/40 flex flex-col gap-1">
+              <span class="text-[10px] font-mono text-on-surface-variant uppercase font-semibold">Mean Latency</span>
+              <span class="text-sm font-bold font-mono text-on-surface">${sm.durationMs?.mean != null ? sm.durationMs.mean + ' ms' : '<span class="text-on-surface-variant/50">UNAVAILABLE</span>'}</span>
+              <span class="text-[9px] font-mono text-on-surface-variant/70">σ = ${sm.durationMs?.stdDev != null ? sm.durationMs.stdDev + 'ms' : 'N/A'}</span>
+            </div>
+
+            <div class="p-3 bg-surface-container rounded-lg border border-surface-container-high/40 flex flex-col gap-1">
+              <span class="text-[10px] font-mono text-on-surface-variant uppercase font-semibold">Mean TTFT</span>
+              <span class="text-sm font-bold font-mono text-on-surface">${sm.ttftMs?.mean != null ? sm.ttftMs.mean + ' ms' : '<span class="text-on-surface-variant/50">UNAVAILABLE</span>'}</span>
+              <span class="text-[9px] font-mono text-on-surface-variant/70">σ = ${sm.ttftMs?.stdDev != null ? sm.ttftMs.stdDev + 'ms' : 'N/A'}</span>
+            </div>
+
+            <div class="p-3 bg-surface-container rounded-lg border border-surface-container-high/40 flex flex-col gap-1">
+              <span class="text-[10px] font-mono text-on-surface-variant uppercase font-semibold">Mean Throughput</span>
+              <span class="text-sm font-bold font-mono text-secondary">${sm.tokensPerSecond?.mean != null ? sm.tokensPerSecond.mean + ' tok/s' : '<span class="text-on-surface-variant/50">UNAVAILABLE</span>'}</span>
+              <span class="text-[9px] font-mono text-on-surface-variant/70">σ = ${sm.tokensPerSecond?.stdDev != null ? sm.tokensPerSecond.stdDev : 'N/A'}</span>
+            </div>
+
+            <div class="p-3 bg-surface-container rounded-lg border border-surface-container-high/40 flex flex-col gap-1">
+              <span class="text-[10px] font-mono text-on-surface-variant uppercase font-semibold">Diagnostics Log</span>
+              <span class="text-sm font-bold font-mono ${report.diagnostics?.length > 0 ? 'text-error' : 'text-secondary'}">${report.diagnostics?.length || 0} Findings</span>
+              <span class="text-[9px] font-mono text-on-surface-variant/70">${report.diagnostics?.length > 0 ? 'Fault evidence logged' : 'Nominal execution'}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 1 & 2: Executive Summary & Objective -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-2">
+            <div class="flex items-center gap-1.5 text-primary text-xs font-mono font-bold uppercase">
+              <span class="material-symbols-outlined text-[16px]">summarize</span>
+              <span>1. Executive Summary</span>
+            </div>
+            <p class="text-xs font-mono text-on-surface leading-relaxed">${escapeHtml(report.executiveSummary)}</p>
+          </div>
+
+          <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-2">
+            <div class="flex items-center gap-1.5 text-primary text-xs font-mono font-bold uppercase">
+              <span class="material-symbols-outlined text-[16px]">target</span>
+              <span>2. Research Objective</span>
+            </div>
+            <p class="text-xs font-mono text-on-surface leading-relaxed">${escapeHtml(report.objective)}</p>
+          </div>
+        </div>
+
+        <!-- Section 3 & 4: Methodology & Environment -->
+        <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-xs">
+          <div class="flex items-center justify-between border-b border-surface-container-high/30 pb-2">
+            <div class="flex items-center gap-1.5 text-primary font-bold uppercase">
+              <span class="material-symbols-outlined text-[16px]">tune</span>
+              <span>3. Methodology &amp; Environment</span>
+            </div>
+            <span class="text-[10px] text-on-surface-variant">MODEL: ${escapeHtml(report.environment?.model || 'N/A')}</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px]">
+            <div class="flex flex-col gap-1.5">
+              <div><strong class="text-on-surface-variant">Execution Mode:</strong> <span class="text-on-surface">${escapeHtml(report.methodology?.executionMode || 'N/A')}</span></div>
+              <div><strong class="text-on-surface-variant">Repeat Count:</strong> <span class="text-on-surface">${report.methodology?.repeatCount || report.trialMatrix?.length || 0} Trials</span></div>
+              <div><strong class="text-on-surface-variant">Measurement Protocol:</strong> <span class="text-on-surface">${escapeHtml(report.methodology?.measurementMethodology || 'N/A')}</span></div>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <div><strong class="text-on-surface-variant">Backend &amp; Provider:</strong> <span class="text-on-surface">${escapeHtml(report.environment?.backend || 'N/A')} (${escapeHtml(report.environment?.provider || 'N/A')})</span></div>
+              <div><strong class="text-on-surface-variant">Hardware Target:</strong> <span class="text-on-surface">${escapeHtml(report.environment?.hardware?.device || 'N/A')}</span></div>
+              <div><strong class="text-on-surface-variant">NPU Acceleration:</strong> <span class="text-on-surface">${escapeHtml(report.environment?.hardware?.npu || 'N/A')}</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 5: Provenance Distribution Table -->
+        <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-xs">
+          <div class="flex items-center justify-between border-b border-surface-container-high/30 pb-2">
+            <div class="flex items-center gap-1.5 text-primary font-bold uppercase">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+              <span>4. Authoritative Provenance Distribution</span>
+            </div>
+            <span class="text-[10px] text-on-surface-variant">TOTAL RUNS: ${report.runIds?.length || 0}</span>
+          </div>
+
+          <div class="grid grid-cols-5 gap-2 text-center">
+            <div class="p-2.5 bg-surface-container rounded border border-surface-container-high/30">
+              <span class="text-[10px] text-on-surface-variant block uppercase">Real</span>
+              <span class="text-base font-bold text-secondary">${p.real}</span>
+            </div>
+            <div class="p-2.5 bg-surface-container rounded border border-surface-container-high/30">
+              <span class="text-[10px] text-on-surface-variant block uppercase">Mock</span>
+              <span class="text-base font-bold text-primary">${p.mock}</span>
+            </div>
+            <div class="p-2.5 bg-surface-container rounded border border-surface-container-high/30">
+              <span class="text-[10px] text-on-surface-variant block uppercase">Blocked</span>
+              <span class="text-base font-bold text-error">${p.blocked}</span>
+            </div>
+            <div class="p-2.5 bg-surface-container rounded border border-surface-container-high/30">
+              <span class="text-[10px] text-on-surface-variant block uppercase">Unavailable</span>
+              <span class="text-base font-bold text-on-surface-variant">${p.unavailable}</span>
+            </div>
+            <div class="p-2.5 bg-surface-container rounded border border-surface-container-high/30">
+              <span class="text-[10px] text-on-surface-variant block uppercase">Legacy</span>
+              <span class="text-base font-bold text-on-surface-variant">${p.legacy}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 6: Measurement Table & Statistical Summary -->
+        <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-xs">
+          <div class="flex items-center justify-between border-b border-surface-container-high/30 pb-2">
+            <div class="flex items-center gap-1.5 text-primary font-bold uppercase">
+              <span class="material-symbols-outlined text-[16px]">monitoring</span>
+              <span>5. Statistical Summary (Bessel-Corrected Sample Metrics)</span>
+            </div>
+            <span class="text-[10px] text-secondary">NON-ZERO EXCLUSION ENFORCED</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-[11px] border-collapse">
+              <thead>
+                <tr class="border-b border-surface-container-high/50 text-on-surface-variant bg-surface-container-lowest/60">
+                  <th class="py-2 px-3">Metric</th>
+                  <th class="py-2 px-3">Semantics</th>
+                  <th class="py-2 px-3">N</th>
+                  <th class="py-2 px-3">Min</th>
+                  <th class="py-2 px-3">Mean</th>
+                  <th class="py-2 px-3">Median</th>
+                  <th class="py-2 px-3">Max</th>
+                  <th class="py-2 px-3">Sample StdDev (σ)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-surface-container-high/20">
+                ${renderStatRow('Latency (Total Duration)', sm.durationMs)}
+                ${renderStatRow('Time to First Token (TTFT)', sm.ttftMs)}
+                ${renderStatRow('Generation Throughput (TPS)', sm.tokensPerSecond)}
+                ${renderStatRow('Peak VRAM Allocation', sm.peakVramMb)}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 7: Trial Matrix -->
+        <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-xs">
+          <div class="flex items-center justify-between border-b border-surface-container-high/30 pb-2">
+            <div class="flex items-center gap-1.5 text-primary font-bold uppercase">
+              <span class="material-symbols-outlined text-[16px]">grid_view</span>
+              <span>6. Trial Matrix</span>
+            </div>
+            <span class="text-[10px] text-on-surface-variant">${report.trialMatrix?.length || 0} TOTAL TRIALS RECORDED</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-[11px] border-collapse">
+              <thead>
+                <tr class="border-b border-surface-container-high/50 text-on-surface-variant bg-surface-container-lowest/60">
+                  <th class="py-2 px-3">#</th>
+                  <th class="py-2 px-3">Run ID</th>
+                  <th class="py-2 px-3">Status</th>
+                  <th class="py-2 px-3">Provenance</th>
+                  <th class="py-2 px-3">Latency</th>
+                  <th class="py-2 px-3">TTFT</th>
+                  <th class="py-2 px-3">TPS</th>
+                  <th class="py-2 px-3">Diagnostic Classification</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-surface-container-high/20">
+                ${(report.trialMatrix || []).map(t => `
+                  <tr class="hover:bg-surface-container/30">
+                    <td class="py-2 px-3 font-bold">${t.trialIndex}</td>
+                    <td class="py-2 px-3 text-primary">${escapeHtml(t.runId)}</td>
+                    <td class="py-2 px-3">
+                      <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold ${
+                        t.status === 'completed' ? 'bg-secondary/15 text-secondary' :
+                        t.status === 'blocked' ? 'bg-error/15 text-error' : 'bg-surface-container-high text-on-surface-variant'
+                      }">${t.status.toUpperCase()}</span>
+                    </td>
+                    <td class="py-2 px-3">
+                      <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold ${
+                        t.classification === 'REAL' ? 'bg-secondary/15 text-secondary' :
+                        t.classification === 'MOCK' ? 'bg-primary/15 text-primary' :
+                        t.classification === 'BLOCKED' ? 'bg-error/15 text-error' : 'bg-surface-container-high text-on-surface-variant'
+                      }">${t.classification}</span>
+                    </td>
+                    <td class="py-2 px-3">${t.durationMs != null ? t.durationMs + 'ms' : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+                    <td class="py-2 px-3">${t.ttftMs != null ? t.ttftMs + 'ms' : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+                    <td class="py-2 px-3">${t.tokensPerSecond != null ? t.tokensPerSecond + ' tok/s' : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+                    <td class="py-2 px-3 text-on-surface-variant">${escapeHtml(t.primaryFinding || 'Nominal')}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 8: Failure Diagnostics Findings -->
+        ${(report.diagnostics?.length || 0) > 0 ? `
+          <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-xs">
+            <div class="flex items-center justify-between border-b border-surface-container-high/30 pb-2">
+              <div class="flex items-center gap-1.5 text-error font-bold uppercase">
+                <span class="material-symbols-outlined text-[16px]">troubleshoot</span>
+                <span>7. Failure Diagnostics Findings (${report.diagnostics.length})</span>
+              </div>
+              <span class="text-[10px] text-on-surface-variant">EVIDENCE-GROUNDED RCA</span>
+            </div>
+
+            <div class="flex flex-col gap-2.5">
+              ${report.diagnostics.map(d => `
+                <div class="p-3 bg-surface-container rounded-lg border border-surface-container-high/40 flex flex-col gap-1.5">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                        d.severity === 'error' ? 'bg-error/20 text-error' : 'bg-primary/20 text-primary'
+                      }">[${d.severity.toUpperCase()}]</span>
+                      <span class="font-bold text-on-surface">${escapeHtml(d.title)}</span>
+                    </div>
+                    <span class="text-[10px] text-on-surface-variant">Trial ${d.trialIndex || 'N/A'} • ${escapeHtml(d.runId)}</span>
+                  </div>
+                  <p class="text-[11px] text-on-surface-variant leading-relaxed">${escapeHtml(d.summary)}</p>
+                  ${(d.evidence || []).length > 0 ? `
+                    <div class="mt-1 p-2 bg-surface-container-lowest rounded border border-surface-container-high/20 flex flex-col gap-1 text-[10px] text-on-surface-variant">
+                      <strong class="text-primary uppercase text-[9px]">Observable Evidence:</strong>
+                      ${d.evidence.map(e => `
+                        <div>• <code class="text-on-surface">${escapeHtml(e.source)}.${escapeHtml(e.field)}</code>: ${escapeHtml(e.description)}</div>
+                      `).join('')}
+                    </div>
+                  ` : ''}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Section 9: Replay Lineage -->
+        ${(report.replayLineage?.length || 0) > 0 ? `
+          <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-xs">
+            <div class="flex items-center justify-between border-b border-surface-container-high/30 pb-2">
+              <div class="flex items-center gap-1.5 text-primary font-bold uppercase">
+                <span class="material-symbols-outlined text-[16px]">account_tree</span>
+                <span>8. Replay Lineage Map</span>
+              </div>
+              <span class="text-[10px] text-on-surface-variant">DETERMINISTIC REPRODUCIBILITY</span>
+            </div>
+
+            <div class="bg-surface-container-lowest p-3 rounded border border-surface-container-high/30 overflow-x-auto text-[11px] flex flex-col gap-1 text-on-surface">
+              ${report.replayLineage.map(node => `
+                <div class="flex items-center gap-2">
+                  ${node.replayOf 
+                    ? `<span class="text-on-surface-variant/50">└── Replay [${escapeHtml(node.runId)}] (Trial ${node.trialIndex}) ◄── Original [${escapeHtml(node.replayOf)}]</span>`
+                    : `<span class="text-secondary font-semibold">Root [${escapeHtml(node.runId)}] (Trial ${node.trialIndex})</span>`
+                  }
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-semibold ${
+                    node.classification === 'REAL' ? 'bg-secondary/15 text-secondary' : 'bg-primary/15 text-primary'
+                  }">${node.classification}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Section 10: Pairwise Comparisons -->
+        ${(report.comparisons?.length || 0) > 0 ? `
+          <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-3 font-mono text-xs">
+            <div class="flex items-center justify-between border-b border-surface-container-high/30 pb-2">
+              <div class="flex items-center gap-1.5 text-primary font-bold uppercase">
+                <span class="material-symbols-outlined text-[16px]">compare_arrows</span>
+                <span>9. Pairwise Empirical Comparisons</span>
+              </div>
+              <span class="text-[10px] text-secondary">NO ARBITRARY WINNER BADGES</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-[11px] border-collapse">
+                <thead>
+                  <tr class="border-b border-surface-container-high/50 text-on-surface-variant bg-surface-container-lowest/60">
+                    <th class="py-2 px-3">Comparison</th>
+                    <th class="py-2 px-3">Latency Delta</th>
+                    <th class="py-2 px-3">TTFT Delta</th>
+                    <th class="py-2 px-3">TPS Delta</th>
+                    <th class="py-2 px-3">Observation Note</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-surface-container-high/20">
+                  ${report.comparisons.map(c => `
+                    <tr>
+                      <td class="py-2 px-3 font-semibold text-on-surface">${escapeHtml(c.trialAName)} vs ${escapeHtml(c.trialBName)}</td>
+                      <td class="py-2 px-3">${c.latencyDeltaMs != null ? (c.latencyDeltaMs >= 0 ? '+' : '') + c.latencyDeltaMs + 'ms' : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+                      <td class="py-2 px-3">${c.ttftDeltaMs != null ? (c.ttftDeltaMs >= 0 ? '+' : '') + c.ttftDeltaMs + 'ms' : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+                      <td class="py-2 px-3">${c.tpsDelta != null ? (c.tpsDelta >= 0 ? '+' : '') + c.tpsDelta + ' tok/s' : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+                      <td class="py-2 px-3 text-on-surface-variant">${escapeHtml(c.note || 'Empirical observation')}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Section 11 & 12: Limitations & Conclusion -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-2">
+            <div class="flex items-center gap-1.5 text-primary text-xs font-mono font-bold uppercase">
+              <span class="material-symbols-outlined text-[16px]">policy</span>
+              <span>10. Limitations &amp; Boundary Conditions</span>
+            </div>
+            <ul class="text-[11px] font-mono text-on-surface-variant flex flex-col gap-1.5 pl-4 list-disc">
+              ${(report.limitations || []).map(lim => `<li>${escapeHtml(lim)}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div class="bg-surface-container-low border border-surface-container-high/40 rounded-xl p-4 flex flex-col gap-2">
+            <div class="flex items-center gap-1.5 text-primary text-xs font-mono font-bold uppercase">
+              <span class="material-symbols-outlined text-[16px]">task_alt</span>
+              <span>11. Factual Conclusion</span>
+            </div>
+            <p class="text-xs font-mono text-on-surface leading-relaxed">${escapeHtml(report.conclusion)}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderStatRow(name, stat) {
+      if (!stat) {
+        return `
+          <tr>
+            <td class="py-2 px-3 font-semibold text-on-surface">${name}</td>
+            <td class="py-2 px-3"><span class="px-1.5 py-0.2 rounded bg-surface-container-high text-[10px] text-on-surface-variant">UNAVAILABLE</span></td>
+            <td class="py-2 px-3">0</td>
+            <td class="py-2 px-3 text-on-surface-variant/40">UNAVAILABLE</td>
+            <td class="py-2 px-3 text-on-surface-variant/40">UNAVAILABLE</td>
+            <td class="py-2 px-3 text-on-surface-variant/40">UNAVAILABLE</td>
+            <td class="py-2 px-3 text-on-surface-variant/40">UNAVAILABLE</td>
+            <td class="py-2 px-3 text-on-surface-variant/40">UNAVAILABLE</td>
+          </tr>
+        `;
+      }
+
+      return `
+        <tr>
+          <td class="py-2 px-3 font-semibold text-on-surface">${name}</td>
+          <td class="py-2 px-3">
+            <span class="px-1.5 py-0.2 rounded text-[10px] font-semibold ${
+              stat.semantics === 'MEASURED' ? 'bg-secondary/15 text-secondary' :
+              stat.semantics === 'DERIVED' ? 'bg-primary/15 text-primary' : 'bg-surface-container-high text-on-surface-variant'
+            }">${stat.semantics}</span>
+          </td>
+          <td class="py-2 px-3">${stat.n}</td>
+          <td class="py-2 px-3">${stat.min != null ? stat.min + ' ' + stat.unit : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+          <td class="py-2 px-3 font-bold text-on-surface">${stat.mean != null ? stat.mean + ' ' + stat.unit : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+          <td class="py-2 px-3">${stat.median != null ? stat.median + ' ' + stat.unit : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+          <td class="py-2 px-3">${stat.max != null ? stat.max + ' ' + stat.unit : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+          <td class="py-2 px-3 text-secondary">${stat.stdDev != null ? stat.stdDev + ' ' + stat.unit : '<span class="text-on-surface-variant/40">UNAVAILABLE</span>'}</td>
+        </tr>
+      `;
+    }
+
+    function populateModalSources() {
+      const expSelect = document.getElementById('select-experiment-id');
+      if (experiments.length > 0) {
+        expSelect.innerHTML = experiments.map(e => `
+          <option value="${e.id}">${e.name} (${e.id}) - ${e.status.toUpperCase()} (${e.runIds?.length || 0} trials)</option>
+        `).join('');
+      } else {
+        expSelect.innerHTML = '<option value="">No experiments found</option>';
+      }
+
+      const runsList = document.getElementById('runs-checkbox-list');
+      if (runs.length > 0) {
+        runsList.innerHTML = runs.map(r => `
+          <label class="flex items-center gap-2 text-[11px] p-1 rounded hover:bg-surface-container cursor-pointer">
+            <input type="checkbox" value="${r.id}" class="run-cb accent-primary" />
+            <span class="text-primary font-bold">${r.id}</span>
+            <span class="text-on-surface truncate">${escapeHtml(r.name || r.model)}</span>
+            <span class="text-[9px] px-1 py-0.2 rounded bg-surface-container-high">${r.status}</span>
+          </label>
+        `).join('');
+      } else {
+        runsList.innerHTML = '<div class="text-[11px] text-on-surface-variant">No runs available</div>';
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Event listeners
+    document.getElementById('search-reports').addEventListener('input', renderReportsList);
+
+    const modal = document.getElementById('builder-modal');
+    document.getElementById('btn-open-builder').addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+    document.getElementById('btn-close-modal').addEventListener('click', closeModal);
+    document.getElementById('btn-cancel-modal').addEventListener('click', closeModal);
+
+    document.querySelectorAll('input[name="report-source-type"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        if (e.target.value === 'experiment') {
+          document.getElementById('experiment-select-container').classList.remove('hidden');
+          document.getElementById('runs-select-container').classList.add('hidden');
+        } else {
+          document.getElementById('experiment-select-container').classList.add('hidden');
+          document.getElementById('runs-select-container').classList.remove('hidden');
+        }
+      });
+    });
+
+    document.getElementById('btn-submit-generate').addEventListener('click', async () => {
+      const sourceType = document.querySelector('input[name="report-source-type"]:checked').value;
+      const title = document.getElementById('input-report-title').value.trim() || undefined;
+      const objective = document.getElementById('input-report-objective').value.trim() || undefined;
+
+      let payload = { title, objective };
+      if (sourceType === 'experiment') {
+        const expId = document.getElementById('select-experiment-id').value;
+        if (!expId) {
+          alert('Please select an experiment');
+          return;
+        }
+        payload.experimentId = expId;
+      } else {
+        const selectedRuns = Array.from(document.querySelectorAll('.run-cb:checked')).map(cb => cb.value);
+        if (selectedRuns.length === 0) {
+          alert('Please select at least one run');
+          return;
+        }
+        payload.runIds = selectedRuns;
+      }
+
+      try {
+        const res = await fetch('/api/reports/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          alert('Failed to compile report: ' + (err.error || 'Server error'));
+          return;
+        }
+
+        const data = await res.json();
+        closeModal();
+        await loadData();
+        if (data.report?.id) {
+          selectReport(data.report.id);
+        }
+      } catch (err) {
+        console.error('Report compilation error:', err);
+        alert('Network error while generating report');
+      }
+    });
+
+    // Initialize on load
+    loadData();
+  </script>
+</body>
+</html>
