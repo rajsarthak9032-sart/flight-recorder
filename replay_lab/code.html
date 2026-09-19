@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary": "#4edea3", "surface-dim": "#091519", "on-tertiary-fixed": "#121d22", "inverse-on-surface": "#273237", "surface-bright": "#303b40", "outline-variant": "#504534", "on-surface-variant": "#d4c4ae", "on-tertiary": "#273237", "surface-container-lowest": "#051014", "on-secondary-fixed-variant": "#005236", "surface": "#091519", "secondary-fixed": "#6ffbbe", "surface-container-high": "#202c31", "primary-fixed": "#ffdea8", "surface-container-low": "#121d22", "on-secondary-container": "#00311f", "tertiary-fixed": "#d8e4eb", "on-secondary-fixed": "#002113", "primary": "#ffc557", "tertiary-container": "#a9b5bb", "surface-tint": "#fcbb35", "on-primary": "#422d00", "on-primary-container": "#5c4000", "secondary-fixed-dim": "#4edea3", "error-container": "#93000a", "inverse-primary": "#7c5800", "on-tertiary-container": "#3c474c", "on-primary-fixed": "#271900", "primary-container": "#e6a820", "inverse-surface": "#d8e4eb", "surface-container": "#162126", "tertiary": "#c5d0d7", "surface-variant": "#2b363b", "on-error-container": "#ffdad6", "on-primary-fixed-variant": "#5e4200", "primary-fixed-dim": "#fcbb35", "on-background": "#d8e4eb", "outline": "#9d8f7a", "tertiary-fixed-dim": "#bcc8cf", "on-surface": "#d8e4eb", "surface-container-highest": "#2b363b", "on-secondary": "#003824", "background": "#091519", "on-tertiary-fixed-variant": "#3d484e", "secondary-container": "#00a572", "error": "#ffb4ab", "on-error": "#690005" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-lg": "1rem", "space-md": "0.75rem", "space-sm": "0.375rem", "gutter": "0.5rem", "space-xl": "1.5rem", "margin": "0.75rem", "space-xs": "0.25rem" }, "fontFamily": { "display-lg": [ "JetBrains Mono" ], "metric-value": [ "JetBrains Mono" ], "headline-xl": [ "Geist" ], "headline-sm": [ "Geist" ], "body-lg": [ "Geist" ], "timestamp": [ "JetBrains Mono" ], "label-caps": [ "JetBrains Mono" ], "metric-display": [ "JetBrains Mono" ], "body-sm": [ "Geist" ], "code-inline": [ "JetBrains Mono" ], "headline-lg": [ "Geist" ], "body-md": [ "Geist" ] }, "fontSize": { "display-lg": [ "32px", { "lineHeight": "38px", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "metric-value": [ "13px", { "lineHeight": "16px", "letterSpacing": "-0.01em", "fontWeight": "500" } ], "headline-xl": [ "24px", { "lineHeight": "30px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-sm": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" } ], "body-lg": [ "14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" } ], "timestamp": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "400" } ], "label-caps": [ "10px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600" } ], "metric-display": [ "20px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-sm": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "code-inline": [ "12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-lg": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.015em", "fontWeight": "500" } ], "body-md": [ "12px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-background font-body-md text-on-surface min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-14 px-space-md flex items-center justify-between bg-surface-container-lowest"><div class="flex items-center gap-space-sm min-w-0"><img alt="Lemonade Flight Recorder Logo" class="h-6 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1XdYeNf_3SsV7wi6hVUWaRC_Yw4vyXparHsFc2Y-bCvtqYNbtO0oS91oEZKwtRpDNdI8xKnr6GYOdO3jRU3pojgEcX1sO6mh_B_VrVUc5QJU4YPrMO2Ulcy1C0iNiE68BZbl9f7DDSEGNjhgp0VXQbxH2-J43xogNTgF2d_bEE7SCUigQK5s5g5yfXcPRoVMEKP6NtHNEvzrpAUco6FUZcO98FxlTsqLgTIJ_dMrt2TKS8Yf3-k2tSUi6er"/><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-surface truncate tracking-tight">Flight Recorder</span><span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">LEMONADE METROLOGY</span></div></div><span class="font-label-caps text-label-caps px-space-xs py-0.5 bg-surface-container-high text-on-surface-variant rounded font-semibold">LOCAL v1.4.2</span></div><div class="px-space-md py-space-xs font-label-caps text-label-caps text-on-surface-variant/70 uppercase tracking-wider">Instruments &amp; telemetry</div><nav class="flex flex-col px-space-xs gap-0.5" data-active-classes="bg-surface-container text-primary font-medium"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="command-center" href="#"><span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">space_dashboard</span><span class="font-body-md text-body-md tracking-tight">Command Center</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="live-flight-recorder" href="#"><span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">show_chart</span><span class="font-body-md text-body-md tracking-tight">Live Flight Recorder</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors group bg-surface-container text-primary font-medium" data-path="replay-lab" href="#"><span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">compare</span><span class="font-body-md text-body-md tracking-tight">Replay Lab</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="failure-diagnostics" href="#"><span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">troubleshoot</span><span class="font-body-md text-body-md tracking-tight">Failure Diagnostics</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="experiments" href="#"><span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">biotech</span><span class="font-body-md text-body-md tracking-tight">Experiments</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="hardware" href="#"><span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">memory</span><span class="font-body-md text-body-md tracking-tight">Hardware</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="model-lab" href="#"><span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">deployed_code</span><span class="font-body-md text-body-md tracking-tight">Model Lab</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors group" data-path="reports" href="#"><span class="material-symbols-outlined text-[18px] shrink-0 text-on-surface-variant group-hover:text-on-surface">description</span><span class="font-body-md text-body-md tracking-tight">Reports</span></a></nav></div><div class="p-space-md bg-surface-container-lowest/80 flex flex-col gap-space-xs"><div class="flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_6px_rgba(78,222,163,0.6)]"></span><span class="font-body-sm text-body-sm text-on-surface font-medium">Local Agent</span></div><span class="font-label-caps text-label-caps text-secondary uppercase font-semibold">Connected</span></div><div class="flex items-center justify-between py-1 px-2 rounded bg-surface-container-high"><span class="font-label-caps text-label-caps text-on-surface-variant">NPU STATE</span><span class="font-label-caps text-label-caps text-primary font-semibold tracking-wider">AMD NPU · LOCK</span></div><div class="flex items-center justify-between pt-space-xs text-on-surface-variant"><a class="flex items-center gap-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[16px]">settings</span><span class="font-body-sm text-body-sm">Settings</span></a><span class="font-timestamp text-timestamp text-on-surface-variant/60">RUN #2049</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-lowest/95 backdrop-blur-xl z-40 px-space-lg flex items-center justify-between gap-space-md select-none"><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-label-caps text-label-caps text-on-surface tracking-wider font-semibold uppercase">Local Environment</span><span class="font-label-caps text-label-caps text-secondary font-semibold">OPERATIONAL</span></div><div class="px-1.5 py-0.5 rounded bg-surface-container-high font-timestamp text-timestamp text-secondary">4ms ping</div></div><div class="hidden xl:flex items-center gap-space-xs shrink min-w-0 overflow-hidden"><div class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container font-code-inline text-code-inline text-on-surface whitespace-nowrap"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span><span class="font-label-caps text-label-caps text-secondary font-semibold">LEMONADE CONNECTED</span></div><div class="flex items-center px-2 py-1 rounded bg-surface-container font-code-inline text-code-inline text-on-surface-variant whitespace-nowrap"><span class="text-on-surface-variant/70 mr-1">MODEL:</span><span class="text-on-surface font-medium">Qwen2.5-Coder-7B</span></div><div class="flex items-center px-2 py-1 rounded bg-surface-container font-code-inline text-code-inline text-on-surface-variant whitespace-nowrap"><span class="text-on-surface-variant/70 mr-1">BACKEND:</span><span class="text-on-surface font-medium">Lemonade-DirectML</span></div><div class="flex items-center px-2 py-1 rounded bg-surface-container font-code-inline text-code-inline text-on-surface-variant whitespace-nowrap"><span class="text-on-surface-variant/70 mr-1">HARDWARE:</span><span class="text-primary font-medium">AMD Ryzen AI NPU</span><span class="text-on-surface-variant/60 ml-1.5">(78% · 16.2W)</span></div></div><div class="flex items-center gap-space-sm shrink-0"><button class="px-space-sm py-1 bg-surface-container text-on-surface hover:bg-surface-container-high hover:text-on-surface rounded font-code-inline text-code-inline uppercase tracking-wider flex items-center gap-1 transition-colors" type="button"><span class="material-symbols-outlined text-[14px] text-error">fiber_manual_record</span><span>Record Run</span></button><button class="px-space-md py-1 bg-primary text-on-primary font-display-lg text-body-sm font-semibold rounded hover:bg-primary-fixed-dim transition-colors tracking-wider uppercase flex items-center gap-1 shadow-[0_0_8px_rgba(230,168,32,0.25)]" type="button"><span class="material-symbols-outlined text-[16px]">play_arrow</span><span>Run Experiment</span></button><div class="flex items-center gap-1 px-1.5 py-1 rounded bg-surface-container font-timestamp text-timestamp text-on-surface-variant"><span class="material-symbols-outlined text-[14px]">help</span><span>Docs</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-14 w-full px-space-lg pb-space-xl bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Metadata & Control Ribbon -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md pb-space-lg">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase bg-surface-container-high px-space-xs py-0.5 rounded">SESSION REF // EXP-DIFF-2049</span>
+<span class="text-tertiary-container text-body-sm">/</span>
+<span class="font-timestamp text-timestamp text-secondary uppercase tracking-wider flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          STATE SYNCHRONIZED
+        </span>
+</div>
+<div class="flex flex-wrap items-baseline gap-space-sm pt-0.5">
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">REPLAY LAB</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Re-run identical workload traces under controlled configuration isolations.</p>
+</div>
+</div>
+<!-- Quick Stats Pill Array -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">alt_route</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">DIVERGENCE INDEX</span>
+<span class="font-metric-value text-metric-value text-primary">14.8%</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-secondary">verified</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">REPRODUCIBILITY SCORE</span>
+<span class="font-metric-value text-metric-value text-secondary">99.4%</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-tertiary">memory</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">COMPUTE ISOLATION</span>
+<span class="font-metric-value text-metric-value text-on-surface">HARDWARE + ARCH</span>
+</div>
+</div>
+</div>
+<!-- SECTION 1: Visual Experiment Lineage DAG Rail -->
+<div class="w-full bg-surface-container-low rounded p-space-md shadow-sm mb-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">account_tree</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Visual Execution Lineage</span>
+<span class="font-timestamp text-timestamp text-on-surface-variant/80 ml-2">ORIGIN: PROD_CANARY_042</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-caps text-label-caps text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-primary"></span> ACTIVE VARIANT</span>
+<span class="flex items-center gap-1 ml-2"><span class="w-2 h-2 rounded bg-surface-container-highest"></span> COMMITTED RUN</span>
+</div>
+</div>
+<!-- Tree Branch Graph Viewport -->
+<div class="w-full overflow-x-auto">
+<div class="min-w-[760px] flex items-center gap-space-md py-space-xs">
+<!-- Root Node: Run #042 -->
+<div class="relative shrink-0 w-64 bg-surface-container p-space-sm rounded shadow-sm hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between pb-1">
+<span class="font-label-caps text-label-caps px-1 py-0.5 rounded bg-surface-container-high text-tertiary">ORIGINAL RUN #042</span>
+<span class="font-timestamp text-timestamp text-secondary font-medium">BASELINE</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface font-semibold truncate">Qwen2.5-Coder-7B</div>
+<div class="flex items-center justify-between text-on-surface-variant font-timestamp text-timestamp pt-1">
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> AMD NPU</span>
+<span class="text-on-surface font-metric-value">42.7 tok/s</span>
+</div>
+<!-- Line connector right -->
+<div class="absolute -right-space-md top-1/2 -translate-y-1/2 w-space-md h-[2px] bg-surface-bright"></div>
+</div>
+<!-- Fork Splice SVG -->
+<div class="shrink-0 flex items-center justify-center">
+<svg class="text-surface-bright" fill="none" height="100" viewbox="0 0 40 100" width="40">
+<path d="M0 50 H15 C25 50, 25 15, 35 15 H40" stroke="currentColor" stroke-width="1.5"></path>
+<path d="M0 50 H40" stroke="currentColor" stroke-width="1.5"></path>
+<path d="M0 50 H15 C25 50, 25 85, 35 85 H40" stroke="currentColor" stroke-width="1.5"></path>
+<circle cx="2" cy="50" fill="currentColor" r="2.5"></circle>
+</svg>
+</div>
+<!-- Descendant Branches Stack -->
+<div class="flex flex-col gap-space-xs shrink-0">
+<!-- Run #043 -->
+<div class="flex items-center justify-between w-96 bg-surface-container/60 hover:bg-surface-container px-space-sm py-1.5 rounded transition-colors group">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="font-timestamp text-timestamp text-tertiary-fixed-dim">#043</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Llama-3.2-3B · AMD NPU</span>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 font-timestamp text-timestamp">
+<span class="text-on-surface">58.1 tok/s</span>
+<span class="text-secondary bg-surface-container-high px-1 py-0.5 rounded font-metric-value">+36% TPS</span>
+</div>
+</div>
+<!-- Run #044 -->
+<div class="flex items-center justify-between w-96 bg-surface-container/60 hover:bg-surface-container px-space-sm py-1.5 rounded transition-colors group">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="font-timestamp text-timestamp text-tertiary-fixed-dim">#044</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Mistral-7B · ROCm GPU</span>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 font-timestamp text-timestamp">
+<span class="text-on-surface">31.4 tok/s</span>
+<span class="text-primary bg-surface-container-high px-1 py-0.5 rounded font-metric-value">FP16 HIGH-PREC</span>
+</div>
+</div>
+<!-- Run #045 (Draft Active) -->
+<div class="flex items-center justify-between w-96 bg-surface-container-high px-space-sm py-2 rounded shadow-md relative group">
+<div class="absolute -left-1 top-0 bottom-0 w-1 bg-primary rounded-l"></div>
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="font-label-caps text-label-caps px-1 py-0.5 rounded bg-primary text-on-primary font-semibold">ACTIVE REPLAY #045</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium truncate">Llama-3.2-3B · Radeon 780M</span>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 font-timestamp text-timestamp">
+<span class="text-primary font-semibold">61.3 tok/s est</span>
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+</div>
+</div>
+</div>
+<!-- Lineage Annotation Pill -->
+<div class="ml-auto hidden 2xl:flex flex-col items-end gap-1 p-space-sm bg-surface-container/40 rounded">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Lineage Topology</span>
+<span class="font-code-inline text-code-inline text-on-surface">DAG depth: 2 · Forks: 3</span>
+<span class="font-timestamp text-timestamp text-secondary">Determinism seed: 0x88F10A</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 2: Side-by-Side Configuration Matrix & Metrics Diff -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md mb-space-md">
+<!-- LEFT PANE: Baseline Run #042 -->
+<div class="flex flex-col bg-surface-container-low rounded p-space-md shadow-sm">
+<!-- Header Bar -->
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+<span class="font-headline-sm text-headline-sm text-on-surface">BASELINE ARTIFACT</span>
+<span class="font-timestamp text-timestamp text-tertiary-fixed-dim ml-1">[#042]</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps text-secondary bg-surface-container-high px-2 py-0.5 rounded">COMMITTED RECORD</span>
+<span class="font-timestamp text-timestamp text-on-surface-variant">T-14m ago</span>
+</div>
+</div>
+<!-- Config Breakdown Card -->
+<div class="bg-surface-container rounded p-space-sm mb-space-sm space-y-1.5">
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase">Model Arch</span>
+<span class="text-on-surface font-code-inline text-code-inline font-medium">Qwen2.5-Coder-7B-Q4_K_M</span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase">Runtime Engine</span>
+<span class="text-on-surface font-code-inline text-code-inline">Lemonade DirectML / ORT-v1.19</span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase">Compute Target</span>
+<span class="text-secondary font-code-inline text-code-inline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+            AMD Ryzen AI NPU (Phoenix)
+          </span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase">Sampling HParams</span>
+<span class="text-on-surface font-timestamp text-timestamp">temp: 0.20 · top_p: 0.90 · rep_p: 1.10</span>
+</div>
+</div>
+<!-- Baseline Metrics Grid -->
+<div class="grid grid-cols-3 gap-space-xs mb-space-sm">
+<div class="bg-surface-container rounded p-space-sm flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TTFT (FIRST TOKEN)</span>
+<span class="font-metric-display text-metric-display text-on-surface mt-0.5">0.31<span class="text-body-sm font-normal text-on-surface-variant">s</span></span>
+<span class="font-timestamp text-timestamp text-on-surface-variant/80 mt-1">Prompt 128 tok</span>
+</div>
+<div class="bg-surface-container rounded p-space-sm flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">THROUGHPUT</span>
+<span class="font-metric-display text-metric-display text-secondary mt-0.5">42.7<span class="text-body-sm font-normal text-on-surface-variant"> tok/s</span></span>
+<span class="font-timestamp text-timestamp text-on-surface-variant/80 mt-1">396 tokens total</span>
+</div>
+<div class="bg-surface-container rounded p-space-sm flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TOTAL DURATION</span>
+<span class="font-metric-display text-metric-display text-on-surface mt-0.5">9.28<span class="text-body-sm font-normal text-on-surface-variant">s</span></span>
+<span class="font-timestamp text-timestamp text-on-surface-variant/80 mt-1">Wall-clock latency</span>
+</div>
+</div>
+<!-- Secondary Hardware Metric Strip -->
+<div class="grid grid-cols-2 gap-space-xs mb-space-sm font-timestamp text-timestamp">
+<div class="bg-surface-container px-space-sm py-1 rounded flex justify-between items-center">
+<span class="text-on-surface-variant">SRAM / VRAM Footprint:</span>
+<span class="text-on-surface font-medium">6.4 GB</span>
+</div>
+<div class="bg-surface-container px-space-sm py-1 rounded flex justify-between items-center">
+<span class="text-on-surface-variant">Power Envelope:</span>
+<span class="text-on-surface font-medium">41.7 J <span class="text-on-surface-variant/70">(16.2W avg)</span></span>
+</div>
+</div>
+<!-- Output Code Snippet Baseline -->
+<div class="flex-1 flex flex-col min-h-0 bg-surface-container-lowest rounded p-space-sm">
+<div class="flex items-center justify-between pb-1 text-on-surface-variant font-label-caps text-label-caps">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">code</span> OUTPUT STREAM (AST AUDIT)</span>
+<span class="text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">check_circle</span> 100% SYNTAX VALID</span>
+</div>
+<div class="flex-1 font-code-inline text-code-inline text-on-surface/90 overflow-y-auto space-y-0.5 leading-relaxed bg-surface-container-lowest/50 p-2 rounded">
+<div class="text-on-surface-variant/60 font-timestamp">// Worker pool implementation in Rust (v1.82)</div>
+<div><span class="text-primary">pub struct</span> <span class="text-secondary">TokenStreamQueue</span> {</div>
+<div class="pl-4">ring_buffer: <span class="text-secondary">Arc</span>&lt;<span class="text-tertiary">RwLock</span>&lt;<span class="text-primary">VecDeque</span>&lt;TensorSlice&gt;&gt;&gt;,</div>
+<div class="pl-4">worker_slots: <span class="text-primary">usize</span>,</div>
+<div class="pl-4">sync_atomic: <span class="text-secondary">AtomicBool</span>,</div>
+<div>}</div>
+<div class="pt-1"><span class="text-primary">impl</span> <span class="text-secondary">TokenStreamQueue</span> {</div>
+<div class="pl-4"><span class="text-primary">pub fn</span> <span class="text-secondary">dispatch_slice</span>(&amp;<span class="text-primary">mut self</span>, slice: TensorSlice) -&gt; <span class="text-secondary">Result</span>&lt;(), IngestFault&gt; {</div>
+<div class="pl-8 text-on-surface-variant/80">if !self.sync_atomic.load(Ordering::Acquire) {</div>
+<div class="pl-12 text-error">return Err(IngestFault::WorkerDesync);</div>
+<div class="pl-8 text-on-surface-variant/80">}</div>
+<div class="pl-8">self.ring_buffer.write().push_back(slice);</div>
+<div class="pl-8 text-secondary">Ok(())</div>
+<div class="pl-4">}</div>
+<div>}</div>
+</div>
+</div>
+</div>
+<!-- RIGHT PANE: Proposed Replay Variant #045 -->
+<div class="flex flex-col bg-surface-container-low rounded p-space-md shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Header Bar -->
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></div>
+<span class="font-headline-sm text-headline-sm text-on-surface">REPLAY VARIANT</span>
+<span class="font-timestamp text-timestamp text-primary font-semibold ml-1">[#045 - CANDIDATE]</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps text-primary bg-primary/10 px-2 py-0.5 rounded font-semibold uppercase">READY TO EXECUTE</span>
+<span class="font-timestamp text-timestamp text-on-surface-variant">Config: ISOLATED</span>
+</div>
+</div>
+<!-- Config Breakdown Card -->
+<div class="bg-surface-container rounded p-space-sm mb-space-sm space-y-1.5">
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase">Model Arch</span>
+<div class="flex items-center gap-1.5">
+<span class="text-primary font-code-inline text-code-inline font-semibold">Llama-3.2-3B-Instruct-Q8_0</span>
+<span class="font-label-caps text-label-caps bg-primary text-on-primary px-1 py-0.2 rounded">SWAPPED</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase">Runtime Engine</span>
+<div class="flex items-center gap-1.5">
+<span class="text-on-surface font-code-inline text-code-inline">Lemonade ROCm / Vulkan-Compute</span>
+<span class="font-label-caps text-label-caps bg-surface-container-high text-tertiary px-1 py-0.2 rounded">MODIFIED</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase">Compute Target</span>
+<span class="text-primary font-code-inline text-code-inline flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[14px]">videogame_asset</span>
+            AMD Radeon 780M iGPU (RDNA3)
+          </span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase">Sampling HParams</span>
+<span class="text-on-surface font-timestamp text-timestamp">temp: 0.20 <span class="text-secondary">(LOCKED)</span> · top_p: 0.90 · rep_p: 1.10</span>
+</div>
+</div>
+<!-- Replay Metrics Grid with Deltas -->
+<div class="grid grid-cols-3 gap-space-xs mb-space-sm">
+<div class="bg-surface-container rounded p-space-sm flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TTFT (PROJECTED)</span>
+<span class="font-timestamp text-timestamp text-secondary bg-surface-container-high px-1 py-0.2 rounded">↓ -29.0%</span>
+</div>
+<span class="font-metric-display text-metric-display text-secondary mt-0.5">0.22<span class="text-body-sm font-normal text-on-surface-variant">s</span></span>
+<span class="font-timestamp text-timestamp text-secondary/80 mt-1">Faster prefill lane</span>
+</div>
+<div class="bg-surface-container rounded p-space-sm flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">THROUGHPUT</span>
+<span class="font-timestamp text-timestamp text-secondary bg-surface-container-high px-1 py-0.2 rounded">↑ +43.5%</span>
+</div>
+<span class="font-metric-display text-metric-display text-primary mt-0.5">61.3<span class="text-body-sm font-normal text-on-surface-variant"> tok/s</span></span>
+<span class="font-timestamp text-timestamp text-secondary/80 mt-1">+18.6 tok/s gain</span>
+</div>
+<div class="bg-surface-container rounded p-space-sm flex flex-col">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TOTAL DURATION</span>
+<span class="font-timestamp text-timestamp text-secondary bg-surface-container-high px-1 py-0.2 rounded">↓ -30.9%</span>
+</div>
+<span class="font-metric-display text-metric-display text-on-surface mt-0.5">6.41<span class="text-body-sm font-normal text-on-surface-variant">s</span></span>
+<span class="font-timestamp text-timestamp text-secondary/80 mt-1">2.87s saved</span>
+</div>
+</div>
+<!-- Secondary Hardware Metric Strip with Deltas -->
+<div class="grid grid-cols-2 gap-space-xs mb-space-sm font-timestamp text-timestamp">
+<div class="bg-surface-container px-space-sm py-1 rounded flex justify-between items-center">
+<span class="text-on-surface-variant">SRAM / VRAM Footprint:</span>
+<span class="text-on-surface font-medium flex items-center gap-1">
+            8.1 GB
+            <span class="text-error bg-surface-container-high px-1 rounded text-label-caps">↑ +26.5%</span>
+</span>
+</div>
+<div class="bg-surface-container px-space-sm py-1 rounded flex justify-between items-center">
+<span class="text-on-surface-variant">Power Envelope:</span>
+<span class="text-on-surface font-medium flex items-center gap-1">
+            88.4 J <span class="text-on-surface-variant/70">(38.5W avg)</span>
+<span class="text-error bg-surface-container-high px-1 rounded text-label-caps">↑ +112%</span>
+</span>
+</div>
+</div>
+<!-- Visual Inline Diff View -->
+<div class="flex-1 flex flex-col min-h-0 bg-surface-container-lowest rounded p-space-sm">
+<div class="flex items-center justify-between pb-1 text-on-surface-variant font-label-caps text-label-caps">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">difference</span> STRUCTURAL DIFF (AST TO AST)</span>
+<span class="text-primary flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">tune</span> 3 ISOLATED DELTAS</span>
+</div>
+<div class="flex-1 font-code-inline text-code-inline overflow-y-auto space-y-0.5 leading-relaxed bg-surface-container-lowest/50 p-2 rounded">
+<div class="text-on-surface-variant/60 font-timestamp">// Structural variance highlighting against baseline AST</div>
+<div class="text-on-surface/80"><span class="text-primary">pub struct</span> <span class="text-secondary">TokenStreamQueue</span> {</div>
+<div class="pl-4 text-on-surface/80">ring_buffer: <span class="text-secondary">Arc</span>&lt;<span class="text-tertiary">RwLock</span>&lt;<span class="text-primary">VecDeque</span>&lt;TensorSlice&gt;&gt;&gt;,</div>
+<div class="pl-4 text-on-surface/80">worker_slots: <span class="text-primary">usize</span>,</div>
+<!-- Line modification diff -->
+<div class="pl-4 bg-error-container/30 text-on-error-container rounded px-1 -mx-1 flex items-center justify-between">
+<span>- sync_atomic: AtomicBool,</span>
+<span class="text-label-caps text-timestamp font-label-caps">REMOVED</span>
+</div>
+<div class="pl-4 bg-secondary-container/20 text-secondary-fixed rounded px-1 -mx-1 flex items-center justify-between">
+<span>+ channel_tx: crossbeam::channel::Sender&lt;TensorSlice&gt;,</span>
+<span class="text-label-caps text-timestamp font-label-caps">OPTIMIZED</span>
+</div>
+<div class="text-on-surface/80">}</div>
+<div class="pt-1 text-on-surface/80"><span class="text-primary">impl</span> <span class="text-secondary">TokenStreamQueue</span> {</div>
+<div class="pl-4 bg-secondary-container/20 text-secondary-fixed rounded px-1 -mx-1">
+            + pub async fn dispatch_lockfree(&amp;self, slice: TensorSlice) -&gt; Result&lt;(), IngestFault&gt; {
+          </div>
+<div class="pl-8 text-on-surface-variant/80">self.channel_tx.send(slice).map_err(|_| IngestFault::WorkerDesync)?;</div>
+<div class="pl-8 text-secondary">Ok(())</div>
+<div class="pl-4 text-on-surface/80">}</div>
+<div class="text-on-surface/80">}</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 3: Parameter Tweak Drawer & Floating Execution Hub -->
+<div class="bg-surface-container-low rounded p-space-md shadow-md">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">sliders</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Parameter Isolation Engine</span>
+<span class="font-label-caps text-label-caps bg-surface-container-high text-on-surface-variant px-1.5 py-0.5 rounded ml-2">REPLAY CONTROL</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Pin or modulate individual execution vectors to guarantee strict causal attribution.</p>
+</div>
+<!-- Action Toolbar CTAs -->
+<div class="flex flex-wrap items-center gap-space-xs shrink-0">
+<button class="px-space-sm py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-code-inline text-code-inline tracking-wide uppercase flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px] text-secondary">lock</span>
+<span>Lock Baseline</span>
+</button>
+<button class="px-space-sm py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-code-inline text-code-inline tracking-wide uppercase flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px] text-tertiary">swap_horiz</span>
+<span>Swap Config</span>
+</button>
+<button class="px-space-sm py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface rounded font-code-inline text-code-inline tracking-wide uppercase flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant">ios_share</span>
+<span>Export Diff Report</span>
+</button>
+<!-- PRIMARY HIGH VISIBILITY AMBER CTA -->
+<button class="px-space-lg py-2 bg-primary text-on-primary font-display-lg text-body-sm font-semibold rounded hover:bg-primary-fixed-dim transition-all tracking-wider uppercase flex items-center gap-2 shadow-[0_0_12px_rgba(230,168,32,0.35)]" id="replayBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+<span>REPLAY EXPERIMENT</span>
+</button>
+</div>
+</div>
+<!-- Parameter Tuning Matrix -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md pt-space-xs">
+<!-- Parameter 1: Accelerator -->
+<div class="flex flex-col gap-space-xs bg-surface-container p-space-sm rounded">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant">ACCELERATOR TARGET</label>
+<span class="font-timestamp text-timestamp text-primary font-medium">ROCm iGPU</span>
+</div>
+<div class="grid grid-cols-2 gap-1 mt-1">
+<button class="px-2 py-1.5 rounded bg-surface-container-low text-on-surface-variant hover:text-on-surface text-left font-body-sm text-body-sm flex items-center justify-between" type="button">
+<span>AMD NPU</span>
+<span class="w-1.5 h-1.5 rounded-full bg-surface-bright"></span>
+</button>
+<button class="px-2 py-1.5 rounded bg-surface-bright text-primary font-semibold text-left font-body-sm text-body-sm flex items-center justify-between shadow-sm" type="button">
+<span>Radeon 780M</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+</button>
+</div>
+</div>
+<!-- Parameter 2: Quantization Precision -->
+<div class="flex flex-col gap-space-xs bg-surface-container p-space-sm rounded">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant">QUANTIZATION FORMAT</label>
+<span class="font-timestamp text-timestamp text-secondary font-medium">Q8_0 (8-bit)</span>
+</div>
+<div class="grid grid-cols-3 gap-1 mt-1 font-label-caps text-label-caps text-center">
+<button class="py-1.5 rounded bg-surface-container-low text-on-surface-variant hover:text-on-surface" type="button">INT4 (Q4_K)</button>
+<button class="py-1.5 rounded bg-surface-bright text-secondary font-semibold shadow-sm" type="button">Q8_0 (8b)</button>
+<button class="py-1.5 rounded bg-surface-container-low text-on-surface-variant hover:text-on-surface" type="button">FP16</button>
+</div>
+</div>
+<!-- Parameter 3: Temperature Range Slider -->
+<div class="flex flex-col gap-space-xs bg-surface-container p-space-sm rounded">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant">TEMPERATURE (STOCHASTICITY)</label>
+<span class="font-metric-value text-metric-value text-on-surface" id="tempValue">0.20</span>
+</div>
+<div class="flex items-center gap-space-xs mt-2">
+<span class="font-timestamp text-timestamp text-on-surface-variant">0.0</span>
+<input class="w-full h-1 bg-surface-container-highest rounded appearance-none cursor-pointer accent-primary" id="tempRange" max="100" min="0" type="range" value="20"/>
+<span class="font-timestamp text-timestamp text-on-surface-variant">1.0</span>
+</div>
+</div>
+<!-- Parameter 4: Context Window Tokens -->
+<div class="flex flex-col gap-space-xs bg-surface-container p-space-sm rounded">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant">CONTEXT WINDOW (KV CACHE)</label>
+<span class="font-metric-value text-metric-value text-on-surface" id="ctxValue">4,096 tok</span>
+</div>
+<div class="flex items-center gap-space-xs mt-2">
+<span class="font-timestamp text-timestamp text-on-surface-variant">1K</span>
+<input class="w-full h-1 bg-surface-container-highest rounded appearance-none cursor-pointer accent-primary" id="ctxRange" max="16384" min="1024" step="1024" type="range" value="4096"/>
+<span class="font-timestamp text-timestamp text-on-surface-variant">16K</span>
+</div>
+</div>
+</div>
+<!-- Execution Environment Telemetry Footer -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-md text-on-surface-variant font-timestamp text-timestamp">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> AMD ROCm 6.2 Driver Locked</span>
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Lemonade Metrology v1.4.2 Probe Active</span>
+<span class="hidden md:inline text-on-surface-variant/70">Trace file: run_042_baseline.lrec</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+<span>Deterministic replay guaranteed within ±0.4% float variance</span>
+</div>
+</div>
+</div>
+<!-- Micro-interaction script -->
+<script>
+    (function() {
+      const tempRange = document.getElementById('tempRange');
+      const tempValue = document.getElementById('tempValue');
+      if (tempRange && tempValue) {
+        tempRange.addEventListener('input', (e) => {
+          const val = (e.target.value / 100).toFixed(2);
+          tempValue.textContent = val;
+        });
+      }
+
+      const ctxRange = document.getElementById('ctxRange');
+      const ctxValue = document.getElementById('ctxValue');
+      if (ctxRange && ctxValue) {
+        ctxRange.addEventListener('input', (e) => {
+          const num = parseInt(e.target.value, 10).toLocaleString();
+          ctxValue.textContent = num + ' tok';
+        });
+      }
+
+      const replayBtn = document.getElementById('replayBtn');
+      if (replayBtn) {
+        replayBtn.addEventListener('click', () => {
+          const originalText = replayBtn.innerHTML;
+          replayBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>DISPATCHING REPLAY...</span>';
+          replayBtn.classList.add('opacity-90');
+          setTimeout(() => {
+            replayBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] text-on-primary">done</span><span>RUN QUEUED (#046)</span>';
+            setTimeout(() => {
+              replayBtn.innerHTML = originalText;
+              replayBtn.classList.remove('opacity-90');
+            }, 1800);
+          }, 1200);
+        });
+      }
+    })();
+  </script>
+</div></main></div></body></html>
